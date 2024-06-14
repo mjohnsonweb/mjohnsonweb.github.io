@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credentialing Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+        h1 {
+            text-align: center;
+            color: rgb(12, 60, 96);
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            color: #555;
+        }
+        input[type="text"], input[type="email"], select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button, input[type="submit"] {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: rgb(59, 154, 207);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover, input[type="submit"]:hover {
+            background-color: rgb(12, 60, 96);
+        }
+        .student-name-group {
+            display: flex;
+            gap: 10px;
+        }
+        .student-name-group input {
+            flex: 1;
+        }
+        .agreement {
+            margin-top: 20px;
+            color: rgb(219, 89, 53);
+        }
+        .step {
+            display: none;
+        }
+        .step.active {
+            display: block;
+        }
+        .add-student-button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 10px;
+            border: 1px solid rgb(59, 154, 207);
+            border-radius: 4px;
+            background-color: #fff;
+            color: rgb(59, 154, 207);
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .add-student-button:hover {
+            background-color: rgb(59, 154, 207);
+            color: #fff;
+        }
+    </style>
+    <script>
+        let currentStep = 0;
+        document.addEventListener('DOMContentLoaded', function() {
+            showStep(currentStep);
+        });
+
+        function showStep(step) {
+            const steps = document.querySelectorAll('.step');
+            steps.forEach((el, index) => {
+                el.style.display = (index === step) ? 'block' : 'none';
+            });
+        }
+
+        function nextStep() {
+            const steps = document.querySelectorAll('.step');
+            if (currentStep < steps.length - 1) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 0) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        }
+
+        function addStudent() {
+            const studentNamesDiv = document.getElementById('student-names');
+            const studentNameGroup = document.createElement('div');
+            studentNameGroup.className = 'student-name-group';
+            
+            const studentFirstNameInput = document.createElement('input');
+            studentFirstNameInput.type = 'text';
+            studentFirstNameInput.name = 'student_first_name[]';
+            studentFirstNameInput.placeholder = 'Student First Name';
+            
+            const studentLastNameInput = document.createElement('input');
+            studentLastNameInput.type = 'text';
+            studentLastNameInput.name = 'student_last_name[]';
+            studentLastNameInput.placeholder = 'Student Last Name';
+            
+            studentNameGroup.appendChild(studentFirstNameInput);
+            studentNameGroup.appendChild(studentLastNameInput);
+            studentNamesDiv.appendChild(studentNameGroup);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Credentialing Form</h1>
+        <form action="submit_credentialing_form.php" method="POST">
+            <div class="step active">
+                <label for="credential">Credential:</label>
+                <select id="credential" name="credential">
+                    <option value="" selected disabled>Select an option</option>
+                    <option value="credential1">Leadership Excellence</option>
+                    <option value="credential2">LSS Yellow Belt</option>
+                    <option value="credential3">LSS Green Belt</option>
+                    <option value="credential1">(CompTIA) ITF</option>
+                    <option value="credential2">(CompTIA) A+</option>
+                    <option value="credential3">(CompTIA) Network+</option>
+                    <option value="credential1">(CompTIA) Security+</option>
+                    <option value="credential2">(Microsoft) Word</option>
+                    <option value="credential3">(Microsoft) Excel</option>
+                    <option value="credential3">(Microsoft) PowerPoint</option>
+                </select>
+                
+                <label for="credentialing_model">Credentialing Model:</label>
+                <select id="credentialing_model" name="credentialing_model">
+                    <option value="" selected disabled>Select an option</option>
+                    <option value="model1">Instructor Led</option>
+                    <option value="model2">Hybrid</option>
+                    <option value="model3">Online</option>
+                </select>
+                
+                <button type="button" onclick="nextStep()">Next</button>
+            </div>
+
+            <div class="step">
+                <div id="student-names" class="student-names">
+                    <label>Student Name(s):</label>
+                    <div class="student-name-group">
+                        <input type="text" name="student_first_name[]" placeholder="First Name">
+                        <input type="text" name="student_last_name[]" placeholder="Last Name">
+                    </div>
+                </div>
+                <button type="button" class="add-student-button" onclick="addStudent()">Add Another Student</button>
+                <br><br>
+                <button type="button" onclick="prevStep()">Previous</button>
+                <button type="button" onclick="nextStep()">Next</button>
+            </div>
+
+            <div class="step">
+                <label for="instructor_email">Instructor Email:</label>
+                <input type="email" id="instructor_email" name="instructor_email" placeholder="Instructor Email">
+                <br><br>
+                <button type="button" onclick="prevStep()">Previous</button>
+                <button type="button" onclick="nextStep()">Next</button>
+            </div>
+
+            <div class="step">
+                <div class="agreement">
+                    Please type your signature below confirming that you have successfully completed the course (or received certified "train-the-trainer" instruction) and the students listed above have met the requirements to obtain the credential.
+                </div>
+                <label for="instructor_signature">Instructor Signature:</label>
+                <input type="text" id="instructor_signature" name="instructor_signature" placeholder="Instructor Signature">
+                <br><br>
+                <button type="button" onclick="prevStep()">Previous</button>
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+</body>
+</html>
