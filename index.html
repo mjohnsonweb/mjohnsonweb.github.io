@@ -163,7 +163,7 @@
             studentNameGroup.appendChild(studentLastNameInput);
             studentNamesDiv.appendChild(studentNameGroup);
 
-            if (studentCount > 5) {
+            if (studentCount > 4) {
                 document.getElementById('download-csv-button').style.display = 'inline-block';
             }
         }
@@ -213,10 +213,10 @@
             const modelSelect = document.getElementById('credentialing_model');
             const selectedCredential = credentialSelect.value;
 
-            const leadershipAndLSS = ['credential1', 'credential2', 'credential3']; // Update these values as per actual credentials
+            const leadershipAndLSS = ['credential1', 'credential2', 'credential3']; 
 
             if (!leadershipAndLSS.includes(selectedCredential)) {
-                modelSelect.value = 'model3'; // Assuming 'model3' corresponds to "Online"
+                modelSelect.value = 'model3'; 
                 modelSelect.disabled = true;
             } else {
                 modelSelect.disabled = false;
@@ -226,14 +226,14 @@
         function downloadCSV() {
             let csvContent = "data:text/csv;charset=utf-8,First Name,Last Name\n";
             for (let i = 0; i < 15; i++) {
-                csvContent += ",\n"; // 5 blank rows for user to fill
+                csvContent += ",\n"; 
             }
 
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement('a');
             link.setAttribute('href', encodedUri);
             link.setAttribute('download', 'students_template.csv');
-            document.body.appendChild(link); // Required for Firefox
+            document.body.appendChild(link); 
             link.click();
             document.body.removeChild(link);
         }
