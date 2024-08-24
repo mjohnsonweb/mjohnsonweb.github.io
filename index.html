@@ -1,338 +1,747 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Credentialing Form</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Portfolio</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f4f4f4;
+            color: #333;
+            scroll-behavior: smooth;
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-    .container {
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 600px;
-    }
+        a {
+            color: #ff6f61;
+            text-decoration: none;
+        }
 
-    h1 {
-      text-align: center;
-      color: rgb(12, 60, 96);
-      font-size: 2em;
-      font-weight: bold;
-      margin-bottom: 20px;
-      letter-spacing: 1px;
-    }
+        /* Dark Mode */
+        .dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
 
-    label {
-      display: block;
-      margin-top: 10px;
-      color: #555;
-    }
+        .dark-mode a {
+            color: #ff6f61;
+        }
 
-    input[type="text"],
-    input[type="email"],
-    select {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-    }
+        .hero {
+    height: 100vh;
+    background: linear-gradient(135deg, #0f2027, #2c5364);
+    display: flex;
+    flex-direction: column; /* Arrange items vertically */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
 
-    button,
-    input[type="submit"],
-    .file-input-label {
-      display: inline-block;
-      padding: 10px 20px;
-      margin-top: 20px;
-      border: none;
-      border-radius: 4px;
-      background-color: rgb(59, 154, 207);
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      text-align: center;
-    }
+.hero-title {
+    font-size: 4em;
+    margin-bottom: 20px; /* Add margin to ensure spacing between title and subtitle */
+    animation: fadeIn 2s ease-in-out;
+}
 
-    button:hover,
-    input[type="submit"]:hover,
-    .file-input-label:hover {
-      background-color: rgb(12, 60, 96);
-    }
+.hero-subtitle {
+    font-size: 1.5em;
+    animation: slideIn 2s ease-in-out;
+}
 
-    .student-name-group {
-      display: flex;
-      gap: 10px;
-    }
+/* Typing Effect */
+.typing-effect {
+    border-right: 2px solid white;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    animation: typing 3s steps(30, end), blink-caret 0.75s step-end infinite;
+}
 
-    .student-name-group input {
-      flex: 1;
-    }
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
 
-    .agreement {
-      margin-top: 20px;
-      color: rgb(219, 89, 53);
-    }
+@keyframes slideIn {
+    from { transform: translateY(100px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
 
-    .step {
-      display: none;
-    }
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
 
-    .step.active {
-      display: block;
-    }
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: white; }
+}
 
-    .add-student-button {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 5px 10px;
-      border: 1px solid rgb(59, 154, 207);
-      border-radius: 4px;
-      background-color: #fff;
-      color: rgb(59, 154, 207);
-      font-size: 14px;
-      cursor: pointer;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 30px;
+            background-color: #ff6f61;
+            border-radius: 15px;
+            cursor: pointer;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
 
-    .add-student-button:hover {
-      background-color: rgb(59, 154, 207);
-      color: #fff;
-    }
+        .dark-mode-toggle::before {
+            content: '🌙';
+            position: absolute;
+            left: 5px;
+            transition: transform 0.3s, opacity 0.3s;
+        }
 
-    .file-input {
-      display: none;
-    }
+        .dark-mode-toggle::after {
+            content: '🌕';
+            position: absolute;
+            right: 5px;
+            opacity: 0;
+            transition: transform 0.3s, opacity 0.3s;
+        }
 
-    .download-csv-button {
-      display: none;
-      margin-top: 10px;
-      padding: 5px 10px;
-      border: 1px solid rgb(59, 154, 207);
-      border-radius: 4px;
-      background-color: #fff;
-      color: rgb(59, 154, 207);
-      font-size: 14px;
-      cursor: pointer;
-      transition: background-color 0.6s ease;
-    }
+        .dark-mode .dark-mode-toggle {
+            background-color: #333;
+        }
 
-    .download-csv-button:hover {
-      background-color: rgb(12, 60, 96);
-    }
-  </style>
-  <script>
-    let currentStep = 0;
-    let studentCount = 1; // Start with 1 because one student input is already present
-    document.addEventListener('DOMContentLoaded', function() {
-      showStep(currentStep);
-      document.getElementById('credential').addEventListener('change', handleCredentialChange);
-    });
+        .dark-mode .dark-mode-toggle::before {
+            opacity: 0;
+            transform: translateX(100%);
+        }
 
-    function showStep(step) {
-      const steps = document.querySelectorAll('.step');
-      steps.forEach((el, index) => {
-        el.style.display = (index === step) ? 'block' : 'none';
-      });
-    }
+        .dark-mode .dark-mode-toggle::after {
+            opacity: 1;
+            transform: translateX(0);
+        }
+             .dark-mode body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #000000;
+            color: #333;
+            scroll-behavior: smooth;
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-    function nextStep() {
-      const steps = document.querySelectorAll('.step');
-      if (currentStep < steps.length - 1) {
-        currentStep++;
-        showStep(currentStep);
-      }
-    }
+        /* Navigation Menu */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 0;
+            z-index: 1000;
+            text-align: center;
+        }
 
-    function prevStep() {
-      if (currentStep > 0) {
-        currentStep--;
-        showStep(currentStep);
-      }
-    }
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
 
-    function addStudent() {
-      studentCount++;
-      const studentNamesDiv = document.getElementById('student-names');
-      const studentNameGroup = document.createElement('div');
-      studentNameGroup.className = 'student-name-group';
-      const studentFirstNameInput = document.createElement('input');
-      studentFirstNameInput.type = 'text';
-      studentFirstNameInput.name = 'student_first_name[]';
-      studentFirstNameInput.placeholder = 'First Name';
-      const studentLastNameInput = document.createElement('input');
-      studentLastNameInput.type = 'text';
-      studentLastNameInput.name = 'student_last_name[]';
-      studentLastNameInput.placeholder = 'Last Name';
-      studentNameGroup.appendChild(studentFirstNameInput);
-      studentNameGroup.appendChild(studentLastNameInput);
-      studentNamesDiv.appendChild(studentNameGroup);
-      if (studentCount > 4) {
-        document.getElementById('download-csv-button').style.display = 'inline-block';
-      }
-    }
+        .navbar ul li {
+            display: inline-block;
+            margin: 0 20px;
+        }
 
-    function handleFileSelect(event) {
-    const file = event.target.files[0];
-    const reader = new FileReader();
+        .navbar ul li a {
+            font-size: 1.2em;
+        }
 
-    reader.onload = function(e) {
-        const contents = e.target.result;
-        const rows = contents.split('\n');
-        
-        // Clear all existing student rows
-        const studentNamesDiv = document.getElementById('student-names');
-        studentNamesDiv.innerHTML = ''; // Remove all children
-        
-        // Iterate through each row in the CSV
-        rows.forEach(row => {
-            // Check if the row contains "First Name" or "Last Name"
-            if (row.toLowerCase().includes('first name') || row.toLowerCase().includes('last name')) {
-                return; // Skip this row
+        .navbar ul li a:hover {
+            color: #ff6f61;
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 100px 10%;
+            background-color: white;
+        }
+
+        .projects h2 {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5em;
+            opacity: 0;
+            transform: translateY(100px);
+            animation: fadeInUp 1s ease-in-out forwards;
+        }
+
+        .project-filters {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .project-filters button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .project-filters button:hover {
+            background-color: #ff3b2e;
+        }
+
+        .project-item {
+            display: none;
+            margin-bottom: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out;
+            opacity: 0;
+            transform: translateY(100px);
+            animation: fadeInUp 1s ease-in-out forwards;
+        }
+
+        .project-item.show {
+            display: flex;
+        }
+
+        .project-item:hover {
+            transform: scale(1.05);
+        }
+
+        .project-image {
+            width: 40%;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 20px;
+            width: 60%;
+        }
+
+        .project-title {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .project-description {
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+
+        .project-links {
+            margin-top: 10px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
             }
-
-            const [firstName, lastName] = row.split(',');
-            if (firstName && lastName) {
-                addStudentWithNames(firstName.trim(), lastName.trim());
+            to {
+                transform: translateY(0);
+                opacity: 1;
             }
-        });
-    };
+        }
 
-    reader.readAsText(file);
+        /* Skills Section */
+        .skills {
+            padding: 100px 10%;
+            background-color: #f4f4f4;
+        }
+
+        .skills h2 {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5em;
+            opacity: 0;
+            transform: translateY(100px);
+            animation: fadeInUp 1s ease-in-out forwards;
+        }
+
+        .skill-bar {
+            margin-bottom: 20px;
+        }
+
+        .skill-bar h3 {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .bar {
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 10px;
+        }
+
+        .bar-fill {
+            width: 0;
+            height: 20px;
+            background-color: #ff6f61;
+            border-radius: 10px;
+            transition: width 2s ease-in-out;
+        }
+
+        .html .bar-fill {
+            width: 90%;
+        }
+
+        .css .bar-fill {
+            width: 85%;
+        }
+
+        .javascript .bar-fill {
+            width: 80%;
+        }
+
+        /* Interactive Timeline */
+        .timeline {
+            padding: 100px 10%;
+            background-color: white;
+        }
+
+        .timeline h2 {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5em;
+        }
+
+        .timeline-content {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            background-color: white;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            border-radius: 5px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(100px);
+            animation: fadeInUp 1s ease-in-out forwards;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff6f61;
+            border-radius: 50%;
+            left: -20px;
+            top: 20px;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item h3 {
+            margin-top: 0;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 10%;
+            background-color: #f4f4f4;
+        }
+
+        .contact h2 {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5em;
+            opacity: 0;
+            transform: translateY(100px);
+            animation: fadeInUp 1s ease-in-out forwards;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-form label {
+            display: block;
+            font-size: 1em;
+            margin-bottom: 5px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .contact-form button {
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .contact-form button:hover {
+            background-color: #ff3b2e;
+        }
+
+        /* Back-to-Top Button */
+        .back-to-top {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #ff6f61;
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1000;
+            transition: opacity 0.3s;
+        }
+
+        .back-to-top:hover {
+            opacity: 0.8;
+        }
+
+        /* Footer */
+        footer {
+            padding: 20px 10%;
+            background-color: #222;
+            color: white;
+            text-align: center;
+        }
+
+        footer a {
+            color: #ff6f61;
+        }
+
+        footer p {
+            margin: 0;
+        }
+      
+.skills {
+    padding: 20px;
+}
+
+.skills-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skill-item {
+    background: #f0f0f0;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    flex: 1 1 auto; /* Allows items to grow and shrink */
+    min-width: 100px; /* Ensures a minimum width */
+}
+
+.skill-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 
-    function addStudentWithNames(firstName, lastName) {
-      const studentNamesDiv = document.getElementById('student-names');
-      const studentNameGroup = document.createElement('div');
-      studentNameGroup.className = 'student-name-group';
-      const studentFirstNameInput = document.createElement('input');
-      studentFirstNameInput.type = 'text';
-      studentFirstNameInput.name = 'student_first_name[]';
-      studentFirstNameInput.placeholder = 'Student First Name';
-      studentFirstNameInput.value = firstName;
-      const studentLastNameInput = document.createElement('input');
-      studentLastNameInput.type = 'text';
-      studentLastNameInput.name = 'student_last_name[]';
-      studentLastNameInput.placeholder = 'Student Last Name';
-      studentLastNameInput.value = lastName;
-      studentNameGroup.appendChild(studentFirstNameInput);
-      studentNameGroup.appendChild(studentLastNameInput);
-      studentNamesDiv.appendChild(studentNameGroup);
-    }
-
-    function handleCredentialChange() {
-      const credentialSelect = document.getElementById('credential');
-      const modelSelect = document.getElementById('credentialing_model');
-      const selectedCredential = credentialSelect.value;
-      const leadershipAndLSS = ['credential1', 'credential2', 'credential3'];
-      if (!leadershipAndLSS.includes(selectedCredential)) {
-        modelSelect.value = 'model3';
-        modelSelect.disabled = true;
-      } else {
-        modelSelect.disabled = false;
-      }
-    }
-    
-    function downloadCSV() {
-      let csvContent = "data:text/csv;charset=utf-8,First Name,Last Name (Feel free to add more commas if needed)\n";
-      for (let i = 0; i < 15; i++) {
-        csvContent += ",\n";
-      }
-      const encodedUri = encodeURI(csvContent);
-      const link = document.createElement('a');
-      link.setAttribute('href', encodedUri);
-      link.setAttribute('download', 'students_template.csv');
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-  </script>
+    </style>
 </head>
-
 <body>
-  <div class="container">
-    <h1>Credentialing Form</h1>
-    <form action="submit_credentialing_form.php" method="POST">
-      <div class="step active">
-        <label for="credential">Credential:</label>
-        <select id="credential" name="credential">
-          <option value="" selected disabled>Select an option</option>
-          <option value="credential1">Leadership Excellence</option>
-          <option value="credential2">LSS Yellow Belt</option>
-          <option value="credential3">LSS Green Belt</option>
-          <option value="credential4">(CompTIA) ITF</option>
-          <option value="credential5">(CompTIA) A+</option>
-          <option value="credential6">(CompTIA) Network+</option>
-          <option value="credential7">(CompTIA) Security+</option>
-          <option value="credential8">(Microsoft) Word</option>
-          <option value="credential9">(Microsoft) Excel</option>
-          <option value="credential10">(Microsoft) PowerPoint</option>
-        </select>
+    <!-- Dark Mode Toggle -->
+    <div class="dark-mode-toggle" id="dark-mode-toggle"></div>
 
-        <label for="credentialing_model">Credentialing Model:</label>
-        <select id="credentialing_model" name="credentialing_model">
-          <option value="" selected disabled>Select an option</option>
-          <option value="model1">Instructor Led</option>
-          <option value="model2">Hybrid</option>
-          <option value="model3">Online</option>
-        </select>
+    <!-- Navbar -->
+    <div class="navbar">
+        <ul>
+          <li><a href="#hero"><b>Home</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#skills">Programming Skills</a></li>
+            <li><a href="#timeline">Timeline</a></li>
+          <li><a href="#contact">Contact</b></a></li>
+        </ul>
+    </div>
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <h1 class="hero-title">Welcome to My Portfolio!</h1>
+        <p class="hero-subtitle typing-effect">I'm Mateo! An aspiring engineer passionate about technology and programming.</p>
+    </section>
 
-        <button type="button" onclick="nextStep()">Next</button>
-      </div>
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <h2>My Projects</h2>
 
-      <div class="step">
-        <div id="student-names" class="student-names">
-          <label>Student Name(s):</label>
-          <div class="student-name-group">
-            <input type="text" name="student_first_name[]" placeholder="First Name">
-            <input type="text" name="student_last_name[]" placeholder="Last Name">
-          </div>
+        <div class="project-filters">
+            <button onclick="filterProjects('all')">All</button>
+            <button onclick="filterProjects('robotics')">Robotics</button>
+            <button onclick="filterProjects('web')">Web Development</button>
         </div>
-        <button type="button" class="add-student-button" onclick="addStudent()">Add Another Student</button>
 
-        <label class="add-student-button" for="file-input">Upload CSV</label>
-        <input type="file" id="file-input" class="file-input" accept=".csv" onchange="handleFileSelect(event)">
-        <button type="button" id="download-csv-button" class="download-csv-button" onclick="downloadCSV()">Download CSV Template</button>
-        <br><br>
-        <button type="button" onclick="prevStep()">Previous</button>
-        <button type="button" onclick="nextStep()">Next</button>
-      </div>
-
-      <div class="step">
-        <label for="instructor_email">Instructor Email:</label>
-        <input type="email" id="instructor_email" name="instructor_email" placeholder="Instructor Email">
-        <br><br>
-        <button type="button" onclick="prevStep()">Previous</button>
-        <button type="button" onclick="nextStep()">Next</button>
-      </div>
-
-      <div class="step">
-        <div class="agreement">
-          Please type your signature below confirming that you have successfully completed the course (or received certified "train-the-trainer" instruction) and the students listed above have met the requirements to obtain the credential.
+        <div class="project-item robotics show">
+            <div class="project-image">
+                <img src="robotics1.jpg" alt="Robotics Project 1">
+            </div>
+            <div class="project-content">
+                <h3 class="project-title">coming soon</h3>
+                <p class="project-description">details about the robotics project to come</p>
+                <div class="project-links">
+                    <a href="#">View Project</a> | <a href="#">Source Code</a>
+                </div>
+            </div>
         </div>
-        <label for="instructor_signature">Instructor Signature:</label>
-        <input type="text" id="instructor_signature" name="instructor_signature" placeholder="Instructor Signature">
-        <br><br>
-        <button type="button" onclick="prevStep()">Previous</button>
-        <input type="submit" value="Submit">
-      </div>
-    </form>
-  </div>
+
+        <div class="project-item web show">
+            <div class="project-image">
+                <img src="web1.jpg" alt="Web Project 1">
+            </div>
+            <div class="project-content">
+                <h3 class="project-title">coming soon</h3>
+                <p class="project-description">details about the web development project coming soon</p>
+                <div class="project-links">
+                    <a href="#">View Project</a> | <a href="#">Source Code</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+<section class="skills" id="skills">
+    <h2>Programming Skills</h2>
+    <ul class="skills-list">
+        <li class="skill-item html">HTML</li>
+        <li class="skill-item css">CSS</li>
+        <li class="skill-item js">JavaScript</li>
+        <li class="skill-item python">Python</li>
+        <li class="skill-item java">Java</li>
+        <li class="skill-item cpp">C++</li>
+        <li class="skill-item csharp">C#</li>
+        <li class="skill-item swift">Swift</li>
+        <li class="skill-item ruby">Ruby</li>
+        <li class="skill-item sql">SQL</li>
+        <li class="skill-item r">R</li>
+        <li class="skill-item kotlin">Kotlin</li>
+        <li class="skill-item c">C</li>
+    </ul>
+</section>
+
+    <!-- Timeline Section -->
+    <section class="timeline" id="timeline">
+        <h2>My Journey</h2>
+
+        <div class="timeline-content">
+            <div class="timeline-item">
+                <h3>indeterminate</h3>
+                <p>coming soon</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>undetermined</h3>
+                <p>nothing here...yet</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <h2>Contact Me</h2>
+        <form class="contact-form">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <!-- Back-to-Top Button -->
+    <div class="back-to-top" id="back-to-top">&#8679;</div>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; Mateo Johnson 2024. All Rights Reserved. | 
+    <a href="#">LinkedIn</a> | 
+    <a href="https://github.com/Mateo-Johnson">GitHub</a> | 
+    <a href="resume.pdf" download>Resume</a>
+    </p>
+</footer>
+
+
+    <script>
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            darkModeToggle.classList.toggle('active');
+        });
+
+        // Scroll Animation for Sections
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = document.querySelectorAll('.project-item, .skills h2, .contact h2, .skills .skill-bar, .timeline-item');
+            const options = {
+                threshold: 0.5
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, options);
+
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+
+            // Skill Bars Animation
+            const skillBars = document.querySelectorAll('.bar-fill');
+            skillBars.forEach(bar => {
+                bar.style.width = bar.classList.contains('html') ? '90%' :
+                                 bar.classList.contains('css') ? '85%' :
+                                 bar.classList.contains('javascript') ? '80%' : '0';
+            });
+        });
+
+        // Back-to-Top Button
+        const backToTop = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.style.display = 'block';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Project Filtering
+        function filterProjects(category) {
+            const projects = document.querySelectorAll('.project-item');
+            projects.forEach(project => {
+                project.classList.remove('show');
+                if (category === 'all' || project.classList.contains(category)) {
+                    project.classList.add('show');
+                }
+            });
+        }
+      
+      class TextScramble {
+        constructor(el) {
+            this.el = el;
+            this.chars = '!<>-_\\/[]{}—=+*^?#________';
+            this.update = this.update.bind(this);
+        }
+
+        setText(newText) {
+            const oldText = this.el.innerText;
+            const length = Math.max(oldText.length, newText.length);
+            const promise = new Promise((resolve) => this.resolve = resolve);
+            this.queue = [];
+
+            for (let i = 0; i < length; i++) {
+                const from = oldText[i] || '';
+                const to = newText[i] || '';
+                const start = Math.floor(Math.random() * 40);
+                const end = start + Math.floor(Math.random() * 40);
+                this.queue.push({ from, to, start, end });
+            }
+
+            cancelAnimationFrame(this.frameRequest);
+            this.frame = 0;
+            this.update();
+            return promise;
+        }
+
+        update() {
+            let output = '';
+            let complete = 0;
+
+            for (let i = 0, n = this.queue.length; i < n; i++) {
+                let { from, to, start, end, char } = this.queue[i];
+
+                if (this.frame >= end) {
+                    complete++;
+                    output += to;
+                } else if (this.frame >= start) {
+                    if (!char || Math.random() < 0.28) {
+                        char = this.randomChar();
+                        this.queue[i].char = char;
+                    }
+                    output += `<span class="dud">${char}</span>`;
+                } else {
+                    output += from;
+                }
+            }
+
+            this.el.innerHTML = output;
+
+            if (complete === this.queue.length) {
+                this.resolve();
+            } else {
+                this.frameRequest = requestAnimationFrame(this.update);
+                this.frame++;
+            }
+        }
+
+        randomChar() {
+            return this.chars[Math.floor(Math.random() * this.chars.length)];
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const el = document.querySelector('.hero-title');
+        const fx = new TextScramble(el);
+
+        el.addEventListener('mouseenter', () => {
+            fx.setText('Welcome to My Portfolio!');
+        });
+    });
+    </script>
 </body>
-
 </html>
