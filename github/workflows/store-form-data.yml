@@ -1,0 +1,23 @@
+name: Store Form Data
+
+on:
+  workflow_dispatch: # Trigger manually or from another script
+
+jobs:
+  store:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Store Form Data
+        run: |
+          # Example Python script to process and store form data
+          python store_data.py
+          
+      - name: Commit and push changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: 'store/*'
+          message: 'Add new form submission'
