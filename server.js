@@ -8,7 +8,7 @@ const app = express();
 const upload = multer({ dest: 'uploads/' });
 
 const octokit = new Octokit({
-    auth: 'YOUR_GITHUB_PERSONAL_ACCESS_TOKEN'
+    auth: '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'
 });
 
 app.post('/upload', upload.single('file'), async (req, res) => {
