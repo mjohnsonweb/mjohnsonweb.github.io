@@ -1,1 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Your Work</title>
+    <style>
+        body {
+            background-color: white;
+            font-family: Poppins, sans-serif;
+            color: #000;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #0F2D55;
+            text-align: center;
+        }
+
+        form {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        form input,
+        form select,
+        form textarea {
+            width: calc(100% - 24px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        form button {
+            background-color: #0F2D55;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Submit Your Work</h1>
+
+    <form id="submissionForm">
+        <input type="text" id="name" placeholder="Your Name" required>
+        <select id="subgroup" required>
+            <option value="" disabled selected>Select Subgroup</option>
+            <option value="Electrical">Electrical</option>
+            <option value="Programming">Programming</option>
+            <option value="Mechanical">Mechanical</option>
+        </select>
+        <textarea id="summary" placeholder="Summary of Work Accomplished" required></textarea>
+        <input type="file" id="picture" accept="image/*" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('submissionForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const subgroup = document.getElementById('subgroup').value;
+            const summary = document.getElementById('summary').value;
+            const picture = document.getElementById('picture').files[0];
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const formData = {
+                    name: name,
+                    subgroup: subgroup,
+                    summary: summary,
+                    image_url: e.target.result
+                };
+
+                fetch('https://api.github.com/repos/your-username/your-repo/contents/data.json', {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': 'token YOUR_GITHUB_TOKEN',
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/vnd.github.v3+json'
+                    },
+                    body: JSON.stringify({
+                        message: 'Update data.json',
+                        content: btoa(JSON.stringify(formData)),
+                        sha: 'SHA_OF_THE_FILE' // Update this with the current SHA of data.json
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    alert('Submission successful!');
+                    document.getElementById('submissionForm').reset();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            };
+            reader.readAsDataURL(picture);
+        });
+    </script>
+</body>
+
+</html>
