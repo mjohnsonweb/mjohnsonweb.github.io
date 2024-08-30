@@ -1,23 +1,30 @@
-name: Store Form Data
+name: Handle Form Submissions
 
 on:
-  workflow_dispatch: # Trigger manually or from another script
+  push:
+    branches:
+      - main
+    paths:
+      - 'data.json'
 
 jobs:
-  store:
+  update-data:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Store Form Data
-        run: |
-          # Example Python script to process and store form data
-          python store_data.py
-          
-      - name: Commit and push changes
-        uses: EndBug/add-and-commit@v9
-        with:
-          add: 'store/*'
-          message: 'Add new form submission'
+    - name: Update data.json
+      run: |
+        echo "Updating data.json with new submissions..."
+        # Your script to update data.json goes here
+        # For example, you could use a Python script to update data.json
+
+    - name: Commit changes
+      run: |
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@github.com"
+        git add data.json
+        git commit -m "Update data.json with new submissions"
+        git push
