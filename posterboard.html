@@ -1,1 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRC Team Posterboard</title>
+    <style>
+        body {
+            background-color: white;
+            font-family: Poppins, sans-serif;
+            color: #000;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #0F2D55;
+            text-align: center;
+        }
+
+        .posterboard {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .posterboard-section {
+            position: relative;
+            width: 300px;
+            padding-bottom: 56.25%; /* Maintain 16:9 aspect ratio */
+            background-color: #333;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .posterboard-section:hover {
+            transform: translateY(-5px) scale(1.05);
+        }
+
+        .posterboard-section h2 {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-size: 1.2em;
+            margin: 0;
+            z-index: 10;
+        }
+
+        .posterboard-section img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .posterboard-section:hover img {
+            opacity: 1;
+        }
+
+        .posterboard-section .blurb {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            text-align: center;
+            color: white;
+            font-size: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .posterboard-section:hover .blurb {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>FRC Team Posterboard</h1>
+
+    <div class="posterboard" id="posterboard">
+        <!-- Sections will be dynamically added here -->
+    </div>
+
+    <script>
+        fetch('https://api.github.com/repos/your-username/your-repo/contents/data.json')
+            .then(response => response.json())
+            .then(data => {
+                const dataContent = JSON.parse(atob(data.content));
+                const posterboard = document.getElementById('posterboard');
+
+                dataContent.forEach(item => {
+                    const section = document.createElement('div');
+                    section.className = 'posterboard-section';
+
+                    const img = document.createElement('img');
+                    img.src = item.image_url;
+
+                    const h2 = document.createElement('h2');
+                    h2.textContent = item.subgroup;
+
+                    const blurb = document.createElement('div');
+                    blurb.className = 'blurb';
+                    blurb.textContent = `${item.name}: ${item.summary}`;
+
+                    section.appendChild(h2);
+                    section.appendChild(img);
+                    section.appendChild(blurb);
+
+                    posterboard.appendChild(section);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    </script>
+</body>
+
+</html>
