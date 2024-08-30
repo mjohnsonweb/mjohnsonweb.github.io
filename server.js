@@ -24,8 +24,8 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 
     try {
         await octokit.repos.createOrUpdateFileContents({
-            owner: 'YOUR_GITHUB_USERNAME',
-            repo: 'YOUR_REPO_NAME',
+            owner: 'mjohnsonweb',
+            repo: 'mjohnsonweb.github.io',
             path: imagePath,
             message: `Upload ${imageName}`,
             content: fileContent.toString('base64'),
@@ -35,8 +35,8 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 
         // Save metadata
         await octokit.repos.createOrUpdateFileContents({
-            owner: 'YOUR_GITHUB_USERNAME',
-            repo: 'YOUR_REPO_NAME',
+            owner: 'mjohnsonweb',
+            repo: 'mjohnsonweb.github.io',
             path: `metadata/${name}_${subgroup}_${imageName}.json`,
             message: `Metadata for ${imageName}`,
             content: Buffer.from(JSON.stringify({ summary })).toString('base64'),
