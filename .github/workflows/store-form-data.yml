@@ -1,0 +1,30 @@
+name: Handle Form Submissions
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'data.json'
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Update data.json
+      run: |
+        echo "Updating data.json with new submissions..."
+        # Your script to update data.json goes here
+        # For example, you could use a Python script to update data.json
+
+    - name: Commit changes
+      run: |
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@github.com"
+        git add data.json
+        git commit -m "Update data.json with new submissions"
+        git push
