@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image</title>
+    <style>
+        .image-container img {
+            max-width: 200px;
+            margin: 10px;
+            position: relative;
+        }
+        .image-container .summary {
+            position: absolute;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            width: 100%;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .image-container:hover .summary {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="text" id="name" name="name" placeholder="Your Name" required>
+        <select id="subgroup" name="subgroup" required>
+            <option value="mechanical">Mechanical</option>
+            <option value="electrical">Electrical</option>
+            <option value="programming">Programming</option>
+        </select>
+        <textarea id="summary" name="summary" placeholder="Short Summary" required></textarea>
+        <input type="file" id="fileInput" name="file" accept="image/*" required>
+        <button type="button" onclick="uploadImage()">Upload Image</button>
+    </form>
+
+    <script>
+        async function uploadImage() {
+            const formData = new FormData();
+            formData.append('file', document.getElementById('fileInput').files[0]);
+            formData.append('name', document.getElementById('name').value);
+            formData.append('subgroup', document.getElementById('subgroup').value);
+            formData.append('summary', document.getElementById('summary').value);
+
+            try {
+                const response = await fetch('http://localhost:3000/upload', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    alert('Image uploaded successfully');
+                } else {
+                    alert('Image upload failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error uploading image');
+            }
+        }
+    </script>
+</body>
+</html>
