@@ -3,74 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Image</title>
+    <title>Project Submission Form</title>
     <style>
-        .image-container img {
-            max-width: 200px;
-            margin: 10px;
-            position: relative;
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
         }
-        .image-container .summary {
-            position: absolute;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.6);
-            color: white;
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 300px;
+        }
+        input, select, textarea {
             width: 100%;
-            text-align: center;
-            opacity: 0;
-            transition: opacity 0.3s;
+            margin: 10px 0;
+            padding: 8px;
+            font-size: 1rem;
         }
-        .image-container:hover .summary {
-            opacity: 1;
+        button {
+            padding: 10px;
+            font-size: 1rem;
+            margin-top: 20px;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+        img {
+            margin-top: 20px;
+            max-width: 300px;
+            height: auto;
         }
     </style>
 </head>
 <body>
-    <form id="uploadForm" enctype="multipart/form-data">
-        <input type="text" id="name" name="name" placeholder="Your Name" required>
-        <select id="subgroup" name="subgroup" required>
-            <option value="mechanical">Mechanical</option>
-            <option value="electrical">Electrical</option>
-            <option value="programming">Programming</option>
+
+    <h2>Project Submission Form</h2>
+    <form id="submissionForm">
+        <input type="text" id="name" placeholder="Your Name" required>
+        <select id="subgroup" required>
+            <option value="" disabled selected>Select Subgroup</option>
+            <option value="Programming">Programming</option>
+            <option value="Electrical">Electrical</option>
+            <option value="Mechanical">Mechanical</option>
         </select>
-        <textarea id="summary" name="summary" placeholder="Short Summary" required></textarea>
-        <input type="file" id="fileInput" name="file" accept="image/*" required>
-        <button type="button" onclick="uploadImage()">Upload Image</button>
+        <textarea id="imageSummary" placeholder="Image Summary" required></textarea>
+        <input type="file" id="imageUploader" accept="image/*" required>
+        <button type="submit">Submit</button>
     </form>
 
-    <script>
-        async function uploadImage() {
-    const formData = new FormData();
-    formData.append('file', document.getElementById('fileInput').files[0]);
-    formData.append('name', document.getElementById('name').value);
-    formData.append('subgroup', document.getElementById('subgroup').value);
-    formData.append('summary', document.getElementById('summary').value);
+    <div class="result" id="result">
+        <!-- Display submission result here -->
+    </div>
 
-    try {
-        const response = await fetch(`https://api.github.com/repos/USERNAME/REPO/dispatches`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `token YOUR_PERSONAL_ACCESS_TOKEN`,
-                'Accept': 'application/vnd.github.everest-preview+json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                event_type: 'form-submission',
-                client_payload: {
-                    name: document.getElementById('name').value,
-                    subgroup: document.getElementById('subgroup').value,
-                    summary: document.getElementById('summary').value
-                }
-            })
+    <button id="copyButton" style="display:none;">Copy Array</button>
+
+    <script>
+        document.getElementById('submissionForm').addEventListener('submit', function (e) {
+            e.preventDefault(); // Prevent form from submitting the traditional way
+
+            const name = document.getElementById('name').value;
+            const subgroup = document.getElementById('subgroup').value;
+            const imageSummary = document.getElementById('imageSummary').value;
+            const file = document.getElementById('imageUploader').files[0];
+            const reader = new FileReader();
+
+            reader.onload = function () {
+                const base64String = reader.result;
+
+                // Store the data in an array
+                const submissionArray = [name, subgroup, imageSummary, base64String];
+
+                // Display the result
+                document.getElementById('result').innerHTML = `
+                    <h3>Submission Array:</h3>
+                    <p><strong>Array:</strong> <span id="arrayText">${JSON.stringify(submissionArray)}</span></p>
+                    <p><strong>Name:</strong> ${submissionArray[0]}</p>
+                    <p><strong>Subgroup:</strong> ${submissionArray[1]}</p>
+                    <p><strong>Image Summary:</strong> ${submissionArray[2]}</p>
+                    <img src="${submissionArray[3]}" alt="Submitted Image">
+                `;
+
+                // Show the copy button
+                document.getElementById('copyButton').style.display = 'block';
+
+                // Send the data to Zapier
+                fetch('https://hooks.zapier.com/hooks/catch/19421684/2t86za0/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        subgroup: subgroup,
+                        imageSummary: imageSummary,
+                        imageBase64: base64String
+                    })
+                })
+                .then(response => response.json())
+                .then(result => console.log('Success:', result))
+                .catch(error => console.error('Error:', error));
+            };
+            reader.readAsDataURL(file);
         });
 
-        if (response.ok) {
-            alert('Form submitted successfully');
-        } else {
-            alert('Form submission failed');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Error submitting form');
-    }
-}
+        // Copy the array to the clipboard
+        document.getElementById('copyButton').addEventListener('click', function () {
+            const arrayText = document.getElementById('arrayText').innerText;
+            navigator.clipboard.writeText(arrayText).then(() => {
+                alert('Array copied to clipboard!');
+            }).catch(err => {
+                alert('Failed to copy array: ', err);
+            });
+        });
+    </script>
+
+</body>
+</html>
