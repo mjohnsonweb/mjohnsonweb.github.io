@@ -11,7 +11,7 @@
     <h1>ACT Practice</h1>
 
     <label for="section-select">Choose Section:</label>
-    <select id="section-select" onchange="loadQuestionsBySection()">
+    <select id="section-select" class="form-control" onchange="loadQuestionsBySection()">
       <option value="all">All Sections</option>
       <option value="math">Math</option>
       <option value="english">English</option>
@@ -30,7 +30,7 @@
     <div id="answer-container">
       <p id="feedback"></p>
     </div>
-    <button onclick="loadNextQuestion()">Next Question</button>
+    <button class="form-control" onclick="loadNextQuestion()">Next Question</button>
   </div>
   <script src="script.js"></script>
 </body>
