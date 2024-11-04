@@ -14,19 +14,19 @@
       align-items: center;
       height: 100vh;
       margin: 0;
-      padding: 10px; /* Add some padding for mobile */
-      box-sizing: border-box; /* Ensure padding doesn't affect width */
+      padding: 10px;
+      box-sizing: border-box;
     }
 
     #app {
       text-align: center;
       max-width: 600px;
-      width: 100%; /* Allow the app to take the full width on small screens */
+      width: 100%; 
     }
 
     h1 {
       color: #ffcc00;
-      font-size: 2em; /* Increase font size for visibility */
+      font-size: 2em; 
     }
 
     #question-container, #answer-container {
@@ -40,22 +40,22 @@
       background-color: #444;
       color: #f1f1f1;
       border: none;
-      padding: 10px; /* Increase padding for better touch targets */
-      width: 90%; /* Make it more flexible */
+      padding: 10px; 
+      width: 90%;
       margin: 10px 0;
-      font-size: 1em; /* Ensure readability */
+      font-size: 1em; 
     }
 
     button {
       background-color: #ffcc00;
       color: #1c1c1c;
       border: none;
-      padding: 12px; /* Increase padding for better touch targets */
+      padding: 12px;
       border-radius: 5px;
       cursor: pointer;
       margin: 10px 0;
-      width: calc(90% - 20px); /* Adjust for padding */
-      font-size: 1em; /* Ensure readability */
+      width: calc(90% - 20px);
+      font-size: 1em;
     }
 
     button:hover {
@@ -72,7 +72,7 @@
       background-color: #444; 
       color: #f1f1f1; 
       border: none; 
-      padding: 10px; /* Increase padding */
+      padding: 10px;
       border-radius: 5px; 
       margin: 5px 0; 
       appearance: none; 
@@ -80,38 +80,37 @@
       background-repeat: no-repeat;
       background-position: right 10px center;
       background-size: 10px;
-      width: calc(90% - 16px); /* Adjust for padding */
-      font-size: 1em; /* Ensure readability */
+      width: calc(90% - 16px);
+      font-size: 1em;
     }
 
     button.form-control {
       background-color: #ffcc00; 
       color: #1c1c1c; 
       border: none; 
-      padding: 10px; /* Increase padding */
+      padding: 10px;
       border-radius: 5px; 
       cursor: pointer; 
       margin: 5px 0; 
-      width: calc(90% - 16px); /* Adjust for padding */
-      font-size: 1em; /* Ensure readability */
+      width: calc(90% - 16px); 
+      font-size: 1em; 
     }
 
     button.form-control:hover {
       background-color: #e6b800; 
     }
 
-    /* Media Queries for Responsiveness */
     @media (max-width: 600px) {
       h1 {
-        font-size: 1.8em; /* Adjust font size for smaller screens */
+        font-size: 1.8em; 
       }
 
       button, input[type="text"], select.form-control {
-        width: 100%; /* Full width on small screens */
+        width: 100%; 
       }
 
       #app {
-        padding: 20px; /* Add padding to the app */
+        padding: 20px;
       }
     }
   </style>
@@ -144,277 +143,672 @@
   </div>
   <script>
 const questions = [
+  // Math Section - ACT Level
+  {
+    type: "math",
+    question:
+      "A real estate agent earns 6% commission on all sales. If a house sells for $325,000 and the agent splits the commission equally with their broker, how much does the agent earn?",
+    choices: ["$9,750", "$19,500", "$6,500", "$13,000", "$3,250"],
+    answer: "$9,750",
+    explanation: "6% of $325,000 = $19,500; half of that is $9,750"
+  },
+  {
+    type: "math",
+    question:
+      "The function f(x) = 2x² + 5x - 12 has two roots. If one root is -4, what is the other root?",
+    choices: ["1.5", "2", "3", "-3", "1"],
+    answer: "1.5",
+    explanation: "Using factor theorem and polynomial division"
+  },
+  {
+    type: "math",
+    question:
+      "In triangle ABC, angle A = 60°, side b = 8, and side c = 12. What is the area of the triangle?",
+    choices: ["41.6", "48.0", "24.0", "20.8", "36.0"],
+    answer: "41.6",
+    explanation: "Using the formula Area = (1/2)bc×sin(A)"
+  },
+  {
+    type: "math",
+    question:
+      "A cylindrical tank with radius 3 feet and height 8 feet is filled with water at a rate of 2 cubic feet per minute. How many minutes will it take to fill the tank to 75% of its capacity?",
+    choices: ["45.2", "56.5", "67.8", "72.4", "84.8"],
+    answer: "67.8",
+    explanation: "Volume = πr²h × 0.75, then divide by rate"
+  },
 
-// Math Questions
-  { type: "math", question: "What is the value of x in the equation 2x + 3 = 11?", choices: ["2", "3", "4", "5", "6"], answer: "4" },
-  { type: "math", question: "Solve for y: 3y - 9 = 0.", choices: ["1", "2", "3", "4", "5"], answer: "3" },
-  { type: "math", question: "What is the area of a triangle with a base of 10 and height of 5?", choices: ["25", "30", "35", "40", "50"], answer: "25" },
-  { type: "math", question: "What is the slope of the line represented by the equation y = 2x + 5?", choices: ["0", "1", "2", "5", "10"], answer: "2" },
-  { type: "math", question: "If f(x) = 2x + 1, what is f(3)?", choices: ["5", "6", "7", "8", "9"], answer: "7" },
-  { type: "math", question: "What is the value of the expression 5^2 + 3^2?", choices: ["25", "34", "34", "40", "50"], answer: "34" },
-  { type: "math", question: "What is the solution to the equation x^2 - 4 = 0?", choices: ["-2", "0", "2", "4", "None of the above"], answer: "-2, 2" },
-  { type: "math", question: "If a rectangle has a length of 8 and a width of 3, what is its perimeter?", choices: ["22", "24", "30", "26", "20"], answer: "22" },
-  { type: "math", question: "What is the probability of rolling a sum of 7 with two six-sided dice?", choices: ["1/6", "1/12", "1/3", "1/2", "5/36"], answer: "1/6" },
-  { type: "math", question: "What is the value of the expression (2 + 3) * 4?", choices: ["14", "20", "15", "12", "10"], answer: "20" },
-  
-  { type: "math", question: "If 5x + 3 = 18, what is the value of x?", choices: ["2", "3", "4", "5", "6"], answer: "3" },
-  { type: "math", question: "What is the circumference of a circle with a radius of 4?", choices: ["8π", "16π", "12π", "10π", "6π"], answer: "8π" },
-  { type: "math", question: "Solve for x: 3(x - 4) = 9", choices: ["1", "3", "7", "5", "9"], answer: "7" },
-  { type: "math", question: "What is the value of 3/4 + 1/8?", choices: ["5/8", "3/8", "7/8", "1", "1/2"], answer: "7/8" },
-  { type: "math", question: "Which of the following is the solution set for the inequality x + 5 < 10?", choices: ["x < 5", "x > 5", "x < 15", "x > 15", "x ≤ 5"], answer: "x < 5" },
-  { type: "math", question: "If the function f(x) = x^2 - 4, what is f(-2)?", choices: ["0", "4", "-4", "2", "1"], answer: "0" },
-  { type: "math", question: "What is the volume of a cylinder with radius 3 and height 5?", choices: ["27π", "30π", "45π", "15π", "18π"], answer: "27π" },
-  { type: "math", question: "Find the x-intercept of the line given by the equation 2x + 3y = 6.", choices: ["(3, 0)", "(0, 2)", "(0, 3)", "(2, 0)", "(1, 0)"], answer: "(3, 0)" },
-  { type: "math", question: "What is the median of the following set of numbers: 3, 7, 8, 12, 15?", choices: ["8", "7", "12", "10", "9"], answer: "8" },
-  { type: "math", question: "What is the factorial of 5 (5!)?", choices: ["20", "60", "120", "240", "300"], answer: "120" },
-  
-  // Science Questions with Passages
+  // Science Section - ACT Level
   {
     type: "science",
-    passage: "Photosynthesis is the process by which green plants, algae, and some bacteria convert light energy into chemical energy in the form of glucose. This process occurs in the chloroplasts, where chlorophyll absorbs sunlight and converts it along with carbon dioxide and water into glucose and oxygen.",
+    passage: `
+    Study 1: Researchers measured the rate of photosynthesis in leaves at different light intensities and CO₂ concentrations.
+    Results showed:
+    - At 100 μmol/m²/s light: 2.1 μmol CO₂/m²/s
+    - At 500 μmol/m²/s light: 8.4 μmol CO₂/m²/s
+    - At 1000 μmol/m²/s light: 12.6 μmol CO₂/m²/s
+
+    Study 2: The same experiment was repeated with different CO₂ concentrations:
+    - At 200 ppm CO₂: 4.2 μmol CO₂/m²/s
+    - At 400 ppm CO₂: 8.4 μmol CO₂/m²/s
+    - At 800 ppm CO₂: 10.5 μmol CO₂/m²/s
+    `,
     questions: [
       {
-        question: "What do plants produce during photosynthesis?",
-        choices: ["Carbon dioxide", "Oxygen", "Glucose", "All of the above", "None of the above"],
-        answer: "Glucose"
+        question:
+          "Based on Study 1, what is the relationship between light intensity and photosynthetic rate?",
+        choices: [
+          "Linear throughout the range",
+          "Exponential throughout the range",
+          "Initially linear but shows diminishing returns at higher intensities",
+          "Inversely proportional",
+          "No clear relationship"
+        ],
+        answer:
+          "Initially linear but shows diminishing returns at higher intensities"
       },
       {
-        question: "What is the primary role of chlorophyll in photosynthesis?",
-        choices: ["To absorb sunlight", "To release oxygen", "To synthesize glucose", "To convert carbon dioxide", "To capture water"],
-        answer: "To absorb sunlight"
+        question:
+          "If the trends continue, what would be the expected photosynthetic rate at 1500 μmol/m²/s light intensity?",
+        choices: [
+          "18.9 μmol CO₂/m²/s",
+          "14.7 μmol CO₂/m²/s",
+          "16.8 μmol CO₂/m²/s",
+          "13.5 μmol CO₂/m²/s",
+          "21.0 μmol CO₂/m²/s"
+        ],
+        answer: "13.5 μmol CO₂/m²/s"
       }
     ]
   },
-  {
-    type: "science",
-    passage: "The human body relies on a complex network of systems to function. The circulatory system transports blood and nutrients, the respiratory system facilitates gas exchange, and the nervous system controls body movements and responses.",
-    questions: [
-      {
-        question: "What is the primary function of the circulatory system?",
-        choices: ["To control body movements", "To facilitate gas exchange", "To transport blood and nutrients", "To protect against disease", "To digest food"],
-        answer: "To transport blood and nutrients"
-      },
-      {
-        question: "Which system is responsible for gas exchange?",
-        choices: ["Circulatory system", "Digestive system", "Nervous system", "Respiratory system", "Endocrine system"],
-        answer: "Respiratory system"
-      }
-    ]
-  },
-  {
-    type: "science",
-    passage: "The Earth's atmosphere consists mainly of nitrogen (78%), oxygen (21%), and trace amounts of other gases. This mixture is vital for sustaining life, as it provides the necessary components for respiration and protects living organisms from harmful solar radiation.",
-    questions: [
-      {
-        question: "What percentage of the Earth's atmosphere is composed of oxygen?",
-        choices: ["78%", "21%", "50%", "100%", "5%"],
-        answer: "21%"
-      },
-      {
-        question: "What is the primary function of the atmosphere for living organisms?",
-        choices: ["To provide nutrients", "To protect against solar radiation", "To maintain temperature", "To allow for photosynthesis", "To circulate blood"],
-        answer: "To protect against solar radiation"
-      }
-    ]
-  },
-  {
-    type: "science",
-    passage: "Cells are the basic building blocks of all living organisms. They contain various organelles that perform specific functions, such as the nucleus, which houses DNA, and mitochondria, which generate energy.",
-    questions: [
-      {
-        question: "What organelle is responsible for energy production in cells?",
-        choices: ["Nucleus", "Ribosome", "Mitochondria", "Chloroplast", "Endoplasmic Reticulum"],
-        answer: "Mitochondria"
-      },
-      {
-        question: "What is housed in the nucleus of a cell?",
-        choices: ["RNA", "DNA", "Proteins", "Lipids", "Carbohydrates"],
-        answer: "DNA"
-      }
-    ]
-  },
-  {
-    type: "science",
-    passage: "The study of genetics involves understanding how traits are inherited through genes. Genes are segments of DNA that determine specific characteristics, and they can be dominant or recessive.",
-    questions: [
-      {
-        question: "What determines specific characteristics in organisms?",
-        choices: ["Chromosomes", "Proteins", "Genes", "Cells", "Tissues"],
-        answer: "Genes"
-      },
-      {
-        question: "What are the two types of genes mentioned?",
-        choices: ["Mutant and wild", "Dominant and recessive", "Homozygous and heterozygous", "Active and inactive", "Exogenous and endogenous"],
-        answer: "Dominant and recessive"
-      }
-    ]
-  },
-  
-  // English Questions with Passages
+
+  // English Section - ACT Level
   {
     type: "english",
-    passage: "In the novel, the protagonist faces numerous challenges as she seeks to find her true identity. Throughout her journey, she learns that self-acceptance is the key to happiness.",
+    passage: `
+    The development of artificial intelligence (AI) has sparked considerable debate among experts regarding its potential impact on society. [1] While some researchers argue that AI will revolutionize industries and improve efficiency, others express concern about its implications for employment and privacy. [2] The technology's rapid advancement has outpaced regulatory frameworks, leaving important questions about governance and ethical guidelines unaddressed. [3] Moreover, the increasing sophistication of AI systems raises philosophical questions about consciousness and the nature of intelligence itself.
+    `,
     questions: [
       {
-        question: "What is the primary theme of the novel?",
-        choices: ["Self-acceptance", "Adventure", "Love", "Friendship", "Betrayal"],
-        answer: "Self-acceptance"
-      },
-      {
-        question: "How does the protagonist's journey contribute to her character development?",
-        choices: ["It makes her more independent", "It leads to her downfall", "It has no impact", "It creates conflict", "It brings her wealth"],
-        answer: "It makes her more independent"
+        question:
+          "Which choice most effectively combines sentences [1] and [2] while maintaining the logical relationship between ideas?",
+        choices: [
+          "While some researchers argue that AI will revolutionize industries and improve efficiency, others express concern about its implications for employment and privacy, and the technology's rapid advancement has outpaced regulatory frameworks.",
+          "Although researchers debate AI's potential to revolutionize industries and its implications for employment and privacy, regulatory frameworks have failed to keep pace with the technology's rapid advancement.",
+          "The technology's rapid advancement has outpaced regulatory frameworks, even as researchers debate whether AI will revolutionize industries or threaten employment and privacy.",
+          "Researchers debate AI's revolutionary potential and its implications, meanwhile regulatory frameworks lag behind technological advancement.",
+          "While researchers argue about AI's impact on industry and privacy, regulatory frameworks have not kept up with technological advancement."
+        ],
+        answer:
+          "Although researchers debate AI's potential to revolutionize industries and its implications for employment and privacy, regulatory frameworks have failed to keep pace with the technology's rapid advancement."
       }
     ]
   },
+
+  {
+    type: "math",
+    question:
+      "A square pyramid has a base edge of 6 units and a slant height of 5 units. What is the total surface area of the pyramid?",
+    choices: [
+      "78 square units",
+      "84 square units",
+      "90 square units",
+      "96 square units",
+      "102 square units"
+    ],
+    answer: "84 square units",
+    explanation: "Base area (36) + 4 triangular faces (each 15) = 84"
+  },
+  {
+    type: "math",
+    question: "If log₃(x) = 4 and log₃(y) = 2, what is the value of log₃(x/y)?",
+    choices: ["0.5", "2", "6", "8", "16"],
+    answer: "2",
+    explanation:
+      "Using log properties: log₃(x/y) = log₃(x) - log₃(y) = 4 - 2 = 2"
+  },
+  {
+    type: "math",
+    question:
+      "A box contains 3 red marbles, 4 blue marbles, and 5 green marbles. If two marbles are drawn without replacement, what is the probability that both are the same color?",
+    choices: ["0.214", "0.273", "0.318", "0.385", "0.427"],
+    answer: "0.318",
+    explanation:
+      "Sum of probabilities: (3/12)(2/11) + (4/12)(3/11) + (5/12)(4/11) ≈ 0.318"
+  },
+
+  // Science Section
+  {
+    type: "science",
+    passage: `
+    Experiment: Scientists studied the relationship between temperature and enzyme activity in three different enzymes (A, B, and C).
+    
+    Results at different temperatures:
+    20°C: A=45%, B=30%, C=25%
+    35°C: A=85%, B=95%, C=60%
+    50°C: A=40%, B=20%, C=90%
+    65°C: A=10%, B=5%, C=45%
+
+    Each enzyme was tested with the same substrate concentration and pH level.
+    `,
+    questions: [
+      {
+        question:
+          "Which enzyme shows the highest temperature tolerance (maintains activity at higher temperatures)?",
+        choices: [
+          "Enzyme A",
+          "Enzyme B",
+          "Enzyme C",
+          "All enzymes show equal tolerance",
+          "Cannot be determined from the data"
+        ],
+        answer: "Enzyme C",
+        explanation:
+          "Enzyme C maintains higher activity at 50°C and 65°C compared to A and B"
+      },
+      {
+        question: "What is the optimal temperature range for Enzyme B?",
+        choices: ["20-35°C", "30-40°C", "35-45°C", "45-50°C", "50-65°C"],
+        answer: "30-40°C",
+        explanation: "Enzyme B shows peak activity (95%) at 35°C"
+      }
+    ]
+  },
+
+  // English Section
   {
     type: "english",
-    passage: "The poem describes a journey through a dark forest, symbolizing the struggles one faces in life. The imagery evokes feelings of fear and uncertainty, but also hope as light begins to filter through the trees.",
+    passage: `
+    The Great Barrier Reef, [1] which is the world's largest coral reef system, faces numerous environmental challenges. [2] Rising ocean temperatures cause coral bleaching. [3] Pollution from coastal development threatens marine ecosystems. [4] Scientists warn that without immediate action, significant portions of the reef may become irreversibly damaged.
+    `,
     questions: [
       {
-        question: "What does the dark forest symbolize in the poem?",
-        choices: ["Fear of the unknown", "Certainty", "Wealth", "Happiness", "Friendship"],
-        answer: "Fear of the unknown"
+        question:
+          "Which of the following best combines sentences [2] and [3] while maintaining clarity and logical flow?",
+        choices: [
+          "Rising ocean temperatures cause coral bleaching, and pollution from coastal development threatens marine ecosystems.",
+          "Rising ocean temperatures cause coral bleaching while pollution from coastal development threatens marine ecosystems.",
+          "Rising ocean temperatures and pollution from coastal development cause coral bleaching and threaten marine ecosystems.",
+          "Coral bleaching, caused by rising ocean temperatures, and pollution from coastal development threaten marine ecosystems.",
+          "Marine ecosystems are threatened by rising ocean temperatures causing coral bleaching and pollution from coastal development."
+        ],
+        answer:
+          "Coral bleaching, caused by rising ocean temperatures, and pollution from coastal development threaten marine ecosystems.",
+        explanation:
+          "This version maintains clarity while effectively combining the two threats into a single, well-structured sentence"
       },
       {
-        question: "What feeling does the imagery in the poem evoke?",
-        choices: ["Hope", "Despair", "Indifference", "Anxiety", "Anger"],
-        answer: "Hope"
+        question:
+          "Which of the following would be the most effective addition after sentence [4] to conclude the passage?",
+        choices: [
+          "The reef is very important to Australia's economy.",
+          "Coral reefs are found in many parts of the world.",
+          "Therefore, conservation efforts must be strengthened and accelerated to preserve this unique ecosystem.",
+          "Many tourists visit the Great Barrier Reef each year.",
+          "Scientists continue to study the reef's ecosystems."
+        ],
+        answer:
+          "Therefore, conservation efforts must be strengthened and accelerated to preserve this unique ecosystem.",
+        explanation:
+          "This conclusion logically follows from the previous statements and provides a call to action"
       }
     ]
   },
+  {
+    type: "math",
+    question:
+      "The population of bacteria doubles every 3 hours. If there are initially 1000 bacteria, how many will there be after 15 hours?",
+    choices: ["16,000", "24,000", "32,000", "48,000", "64,000"],
+    answer: "32,000",
+    explanation: "In 15 hours, there are 5 doubling periods: 1000 × 2⁵ = 32,000"
+  },
+  {
+    type: "math",
+    question:
+      "In a regular hexagon with side length 4 units, what is the area of the largest circle that can be inscribed within it?",
+    choices: ["24π", "16π", "12π", "8π", "4π"],
+    answer: "16π",
+    explanation:
+      "Area = πr², where r = 4√3/2 (radius of inscribed circle in regular hexagon)"
+  },
+  {
+    type: "math",
+    question:
+      "A car travels from point A to point B at 40 mph and returns by the same route at 60 mph. What is the average speed for the entire trip?",
+    choices: ["50 mph", "48 mph", "45 mph", "52 mph", "55 mph"],
+    answer: "48 mph",
+    explanation: "Using harmonic mean: 2/(1/40 + 1/60) = 48"
+  },
+
+  // Science Section
+  {
+    type: "science",
+    passage: `
+    Experiment: Researchers studied wind turbine efficiency at different wind speeds and blade angles.
+    
+    Data collected over 24 hours:
+    Wind Speed (mph) | Blade Angle (degrees) | Power Output (kW)
+    10               | 15                    | 100
+    10               | 30                    | 150
+    10               | 45                    | 120
+    20               | 15                    | 300
+    20               | 30                    | 450
+    20               | 45                    | 350
+    30               | 15                    | 600
+    30               | 30                    | 800
+    30               | 45                    | 650
+    `,
+    questions: [
+      {
+        question:
+          "At what blade angle does the turbine consistently produce the highest power output?",
+        choices: [
+          "15 degrees",
+          "30 degrees",
+          "45 degrees",
+          "It varies with wind speed",
+          "Cannot be determined"
+        ],
+        answer: "30 degrees",
+        explanation:
+          "At all wind speeds, 30-degree blade angle produces highest output"
+      },
+      {
+        question:
+          "How does power output change with wind speed at the optimal blade angle?",
+        choices: [
+          "Linearly",
+          "Exponentially",
+          "Logarithmically",
+          "Quadratically",
+          "No clear pattern"
+        ],
+        answer: "Quadratically",
+        explanation:
+          "Power output roughly follows square of wind speed (150→450→800)"
+      }
+    ]
+  },
+
+  // English Section
   {
     type: "english",
-    passage: "The article discusses the impact of climate change on polar bears, emphasizing the urgency of conservation efforts. It highlights how melting ice affects their habitat and hunting abilities.",
+    passage: `
+    [1] Quantum computing represents a fundamental shift in computational capability. [2] Traditional computers process information using bits, which can be either 0 or 1. [3] Quantum computers use quantum bits, or qubits, which can exist in multiple states simultaneously. [4] This property, known as superposition, allows quantum computers to perform certain calculations exponentially faster than classical computers.
+    `,
     questions: [
       {
-        question: "What is the main focus of the article?",
-        choices: ["Climate change's impact on polar bears", "Polar bear hunting habits", "Conservation success stories", "The biology of polar bears", "Global warming causes"],
-        answer: "Climate change's impact on polar bears"
-      },
-      {
-        question: "What urgent issue does the article address?",
-        choices: ["Polar bear migration", "Loss of habitat due to climate change", "Polar bear reproduction", "Feeding habits of polar bears", "Climate change effects on humans"],
-        answer: "Loss of habitat due to climate change"
+        question:
+          "Which revision to sentence [3] best maintains the technical accuracy while improving clarity?",
+        choices: [
+          "Unlike traditional bits, quantum computers use qubits that can exist in multiple states simultaneously.",
+          "Quantum computers use special bits called qubits.",
+          "Qubits are different from regular bits because they use quantum mechanics.",
+          "In quantum computing, qubits replace traditional bits with quantum states.",
+          "Quantum bits are used instead of regular bits in quantum computers."
+        ],
+        answer:
+          "Unlike traditional bits, quantum computers use qubits that can exist in multiple states simultaneously.",
+        explanation:
+          "This version maintains technical accuracy while clearly contrasting with traditional computing"
       }
     ]
   },
+
+  // Reading Comprehension Section
+  {
+    type: "reading",
+    passage: `
+    The evolution of human color vision is a fascinating example of adaptation. Most mammals are dichromats, meaning they have two types of cone cells in their retinas. However, primates, including humans, are typically trichromats with three types of cone cells. This adaptation likely evolved as early primates began relying more heavily on fruit as a food source. The ability to distinguish between ripe and unripe fruit, as well as young and mature leaves, provided a significant evolutionary advantage.
+
+    Research suggests that this enhanced color vision came at a cost. The neural machinery required to process three-color vision demands considerable energy and brain space. Additionally, some scientists hypothesize that the trade-off for better color vision might have been a reduction in our ability to see in low-light conditions compared to other mammals.
+    `,
+    questions: [
+      {
+        question:
+          "According to the passage, what was the primary evolutionary advantage of trichromatic vision?",
+        choices: [
+          "Better night vision",
+          "Improved depth perception",
+          "The ability to distinguish ripe fruit",
+          "Enhanced social communication",
+          "Protection from predators"
+        ],
+        answer: "The ability to distinguish ripe fruit",
+        explanation:
+          "The passage explicitly states this as an evolutionary advantage for early primates"
+      },
+      {
+        question:
+          "What trade-off is suggested in the development of human color vision?",
+        choices: [
+          "Increased brain size versus reduced mobility",
+          "Better color vision versus reduced night vision",
+          "More cone cells versus fewer rod cells",
+          "Higher energy use versus lower visual acuity",
+          "Enhanced fruit detection versus reduced smell"
+        ],
+        answer: "Better color vision versus reduced night vision",
+        explanation:
+          "The passage mentions this specific trade-off in the second paragraph"
+      }
+    ]
+  },
+
+  // ACT Science - Data Analysis
+  {
+    type: "science",
+    passage: `
+    Study: Researchers investigated the relationship between exercise intensity and cognitive performance.
+    
+    Test subjects completed memory tasks after exercising at different heart rates:
+    
+    Heart Rate (% of max) | Memory Score | Reaction Time (ms)
+    60%                   | 72           | 245
+    70%                   | 78           | 220
+    80%                   | 85           | 200
+    90%                   | 76           | 215
+    95%                   | 65           | 240
+
+    Tests were conducted on different days with adequate rest between sessions.
+    `,
+    questions: [
+      {
+        question:
+          "At what exercise intensity did subjects show optimal cognitive performance?",
+        choices: [
+          "60% of max heart rate",
+          "70% of max heart rate",
+          "80% of max heart rate",
+          "90% of max heart rate",
+          "95% of max heart rate"
+        ],
+        answer: "80% of max heart rate",
+        explanation:
+          "Both memory score and reaction time were best at 80% max heart rate"
+      },
+      {
+        question:
+          "What happens to cognitive performance when exercise intensity exceeds 80% of max heart rate?",
+        choices: [
+          "It continues to improve",
+          "It remains constant",
+          "It declines gradually",
+          "It drops sharply",
+          "It becomes more variable"
+        ],
+        answer: "It declines gradually",
+        explanation:
+          "Both memory and reaction time show gradual deterioration above 80%"
+      }
+    ]
+  },
+
+  // Math - Complex Problem
+  {
+    type: "math",
+    question:
+      "A cylindrical water tank with radius 3 meters is filled to a depth of 4 meters. If water is being drained at a rate of 2 cubic meters per minute and simultaneously being filled at a rate of 1 cubic meter per minute, how many minutes will it take for the water level to drop to 1 meter?",
+    choices: ["45π", "54π", "63π", "72π", "81π"],
+    answer: "54π",
+    explanation:
+      "Volume change = πr²(h₁-h₂) = π(3)²(4-1) = 27π. Net rate = -1 m³/min. Time = 27π/1 = 54π minutes"
+  },
+  {
+    type: "math",
+    question:
+      "A drone flies in a spiral path described by r = θ/4π in polar coordinates, where r is in meters and θ is in radians. How far is the drone from the origin when it completes two full revolutions?",
+    choices: ["1 meter", "2 meters", "3 meters", "4 meters", "5 meters"],
+    answer: "1 meter",
+    explanation: "After 2 revolutions, θ = 4π radians, so r = 4π/4π = 1 meter"
+  },
+  {
+    type: "math",
+    question:
+      "In a game, players win points that follow the sequence: 2, 6, 12, 20, 30, .... What is the 8th term in this sequence?",
+    choices: ["56", "72", "90", "42", "64"],
+    answer: "72",
+    explanation:
+      "Differences between terms form arithmetic sequence 4,6,8,10... Term 8 = 2 + 4 + 6 + 8 + 10 + 12 + 14 + 16 = 72"
+  },
+  {
+    type: "math",
+    question:
+      "A solar panel's efficiency can be modeled by the function E(t) = -0.02t² + 0.8t + 85, where t is years since installation and E is efficiency percentage. When will the efficiency drop below 80%?",
+    choices: [
+      "After 3 years",
+      "After 4 years",
+      "After 5 years",
+      "After 6 years",
+      "After 7 years"
+    ],
+    answer: "After 4 years",
+    explanation: "Solve -0.02t² + 0.8t + 85 = 80 using quadratic formula"
+  },
+
+  // Science - Climate Data Analysis
+  {
+    type: "science",
+    passage: `
+    Scientists studied the relationship between deforestation and local climate changes in three regions:
+
+    Region A (Tropical):
+    Years of Deforestation | Temperature Change (°C) | Rainfall Change (%)
+    5                      | +0.8                    | -12
+    10                     | +1.5                    | -25
+    15                     | +2.3                    | -35
+
+    Region B (Temperate):
+    Years of Deforestation | Temperature Change (°C) | Rainfall Change (%)
+    5                      | +0.3                    | -5
+    10                     | +0.7                    | -11
+    15                     | +1.1                    | -18
+
+    Region C (Subtropical):
+    Years of Deforestation | Temperature Change (°C) | Rainfall Change (%)
+    5                      | +0.5                    | -8
+    10                     | +1.2                    | -19
+    15                     | +1.8                    | -28
+    `,
+    questions: [
+      {
+        question:
+          "Which region shows the strongest correlation between years of deforestation and temperature increase?",
+        choices: [
+          "Region A",
+          "Region B",
+          "Region C",
+          "All regions show equal correlation",
+          "Cannot be determined from the data"
+        ],
+        answer: "Region A",
+        explanation:
+          "Region A shows the steepest and most consistent temperature increase per year"
+      },
+      {
+        question:
+          "If current trends continue, what would be the expected rainfall change in Region C after 20 years of deforestation?",
+        choices: ["-32%", "-35%", "-38%", "-41%", "-44%"],
+        answer: "-38%",
+        explanation:
+          "Using the rate of change from previous data points: approximately -9.5% per 5 years"
+      }
+    ]
+  },
+
+  // Reading Comprehension - Technology History
+  {
+    type: "reading",
+    passage: `
+    The development of the first electronic computers was not a singular event but rather a convergence of mathematical theory, engineering capability, and practical necessity. The ENIAC, completed in 1945, represented a significant milestone but drew upon decades of prior work. Ada Lovelace had written the first algorithm intended for machine processing nearly a century earlier, while working with Charles Babbage's Analytical Engine designs. During World War II, the need for rapid ballistics calculations and code-breaking capabilities accelerated computer development.
+
+    Perhaps surprisingly, early computer development focused less on processing speed and more on reliability and accuracy. The first machines were essentially elaborate calculators, designed to perform specific tasks rather than the general-purpose devices we know today. The transformation from specialized calculating machines to programmable computers required both technological advancement and a fundamental shift in how we conceptualized computation itself. This shift was largely influenced by Alan Turing's theoretical work on computability in the 1930s.
+    `,
+    questions: [
+      {
+        question:
+          "According to the passage, what was the primary focus of early computer development?",
+        choices: [
+          "Processing speed",
+          "Memory capacity",
+          "Reliability and accuracy",
+          "Size reduction",
+          "Programming flexibility"
+        ],
+        answer: "Reliability and accuracy",
+        explanation:
+          "The passage explicitly states this was prioritized over processing speed"
+      },
+      {
+        question: "How did World War II influence computer development?",
+        choices: [
+          "It provided initial funding only",
+          "It accelerated development due to military needs",
+          "It shifted focus to consumer applications",
+          "It delayed progress significantly",
+          "It had no significant impact"
+        ],
+        answer: "It accelerated development due to military needs",
+        explanation:
+          "The passage mentions acceleration due to ballistics and code-breaking needs"
+      }
+    ]
+  },
+
+  // English - Technical Writing
   {
     type: "english",
-    passage: "The author argues that technology has transformed communication, making it easier yet often more isolating. While it connects people across distances, it can also diminish face-to-face interactions.",
+    passage: `
+    [1] Machine learning algorithms can process vast amounts of data to identify patterns and make predictions. [2] These algorithms learn from experience, improving their performance over time. [3] The applications of machine learning range from image recognition to natural language processing. [4] The technology has revolutionized fields such as healthcare, finance, and transportation.
+    `,
     questions: [
       {
-        question: "What is the author's perspective on technology's impact on communication?",
-        choices: ["It is entirely positive", "It has both benefits and drawbacks", "It has no impact", "It is detrimental only", "It fosters genuine relationships"],
-        answer: "It has both benefits and drawbacks"
-      },
-      {
-        question: "What negative effect of technology does the author mention?",
-        choices: ["Increased efficiency", "Enhanced connection", "Diminished face-to-face interactions", "Access to information", "Improved relationships"],
-        answer: "Diminished face-to-face interactions"
+        question:
+          "Which revision of sentence [2] best maintains the technical accuracy while adding specific detail?",
+        choices: [
+          "These algorithms improve their performance through repeated exposure to data sets.",
+          "These algorithms get better at their jobs over time.",
+          "These algorithms learn just like humans do.",
+          "These algorithms become more accurate as they work.",
+          "These algorithms improve through experience."
+        ],
+        answer:
+          "These algorithms improve their performance through repeated exposure to data sets.",
+        explanation:
+          "This revision maintains technical accuracy while adding specific detail about the learning process"
       }
     ]
   },
+
+  // Science - Genetics
   {
-    type: "english", 
-    question: "What literary device is primarily used in the phrase 'the wind whispered through the trees'?", choices: ["Metaphor", "Simile", "Personification", "Imagery", "Alliteration"], answer: "Personification" 
-  },
-  { type: "english", question: "In a story, which character is typically the main protagonist?", choices: ["The hero", "The villain", "The sidekick", "The mentor", "The narrator"], answer: "The hero" },
-  { type: "english", question: "Which of the following is a central idea of a text?", choices: ["Theme", "Plot", "Character", "Setting", "Conflict"], answer: "Theme" },
-  { type: "english", question: "What does the term 'foreshadowing' refer to in literature?", choices: ["A character's inner thoughts", "A hint of future events", "The setting of a story", "A moral lesson", "The climax of a story"], answer: "A hint of future events" },
-  { type: "english", question: "What is the purpose of a thesis statement in an essay?", choices: ["To summarize the conclusion", "To present the main argument", "To provide examples", "To introduce the topic", "To engage the reader"], answer: "To present the main argument" },
-  
-  // Continuing to add more questions until we reach 200
-  { type: "math", question: "What is the solution to 2x + 5 = 15?", choices: ["5", "10", "2.5", "15", "20"], answer: "5" },
-  { type: "math", question: "Find the value of x in the equation 4(x - 3) = 12.", choices: ["0", "3", "6", "9", "12"], answer: "6" },
-  { type: "math", question: "What is 15% of 200?", choices: ["30", "35", "40", "25", "20"], answer: "30" },
-  { type: "math", question: "What is the value of the expression 8 + (6 * 3)?", choices: ["8", "18", "26", "32", "14"], answer: "26" },
-  { type: "math", question: "If a square has a side length of 5, what is its area?", choices: ["10", "15", "20", "25", "30"], answer: "25" },
-  { type: "math", question: "What is the value of 3x + 4 when x = 2?", choices: ["10", "14", "12", "8", "6"], answer: "10" },
-  { type: "math", question: "What is the solution to the equation x/4 = 2?", choices: ["6", "4", "8", "10", "12"], answer: "8" },
-  { type: "math", question: "If a car travels 60 miles in 1 hour, how far will it travel in 2.5 hours?", choices: ["100 miles", "120 miles", "150 miles", "180 miles", "200 miles"], answer: "150 miles" },
-  { type: "math", question: "What is the greatest common divisor of 12 and 16?", choices: ["2", "3", "4", "5", "6"], answer: "4" },
-  { type: "math", question: "What is the product of the roots of the equation x^2 - 5x + 6 = 0?", choices: ["2", "3", "4", "6", "5"], answer: "6" },
+    type: "science",
+    passage: `
+    Study: Researchers examined the inheritance patterns of three traits in fruit flies:
+    
+    Cross Results:
+    Trait A: Parent phenotypes (Red eyes × White eyes)
+    F1 generation: 100% Red eyes
+    F2 generation: 75% Red eyes, 25% White eyes
 
-  { type: "science", passage: "The process of cellular respiration is how cells convert glucose into energy. It occurs in the mitochondria and can be broken down into glycolysis, the Krebs cycle, and oxidative phosphorylation.", 
+    Trait B: Parent phenotypes (Long wings × Short wings)
+    F1 generation: 100% Long wings
+    F2 generation: 50% Long wings, 50% Short wings
+
+    Trait C: Parent phenotypes (Gray body × Black body)
+    F1 generation: Mixed phenotypes
+    F2 generation: 25% Gray, 50% Mixed, 25% Black
+    `,
     questions: [
-      { question: "Where does cellular respiration occur?", choices: ["Nucleus", "Mitochondria", "Chloroplast", "Cytoplasm", "Ribosome"], answer: "Mitochondria" },
-      { question: "What is produced as a byproduct of cellular respiration?", choices: ["Glucose", "Water", "Oxygen", "Carbon dioxide", "ATP"], answer: "Carbon dioxide" }
-    ]
-  },
-  { type: "science", passage: "The theory of evolution explains how species change over time through natural selection. Those individuals with traits better suited to their environment are more likely to survive and reproduce.", 
-    questions: [
-      { question: "What does natural selection favor?", choices: ["Random mutations", "Traits that hinder survival", "Traits better suited for survival", "Genetic drift", "Environmental changes"], answer: "Traits better suited for survival" },
-      { question: "What is the result of natural selection?", choices: ["Species extinction", "Genetic diversity", "Increased mutation rates", "Adaptation to the environment", "Reproduction of weaker traits"], answer: "Adaptation to the environment" }
-    ]
-  },
-  { type: "science", passage: "Acids and bases are two fundamental categories of chemical substances. Acids donate protons (H+) in a solution, while bases accept protons. The pH scale measures how acidic or basic a solution is.", 
-    questions: [
-      { question: "What does a low pH indicate?", choices: ["Neutral solution", "Basic solution", "Acidic solution", "High concentration of hydroxide ions", "High concentration of bicarbonate ions"], answer: "Acidic solution" },
-      { question: "What is produced when an acid donates a proton?", choices: ["H2O", "OH-", "H+", "NaCl", "CO2"], answer: "H+" }
-    ]
-  },
-  { type: "science", passage: "The water cycle describes how water evaporates, condenses, and precipitates back to Earth. This cycle is crucial for maintaining ecosystems and providing freshwater.", 
-    questions: [
-      { question: "What is the process of water vapor turning into liquid called?", choices: ["Evaporation", "Transpiration", "Condensation", "Precipitation", "Infiltration"], answer: "Condensation" },
-      { question: "Why is the water cycle important?", choices: ["It prevents water pollution", "It creates energy", "It maintains ecosystems", "It destroys habitats", "It controls weather"], answer: "It maintains ecosystems" }
-    ]
-  },
-  { type: "science", passage: "Photosynthesis is the process by which green plants use sunlight to synthesize foods from carbon dioxide and water. It occurs mainly in the chloroplasts of plant cells.", 
-    questions: [
-      { question: "What is the main product of photosynthesis?", choices: ["Oxygen", "Glucose", "Carbon dioxide", "Water", "ATP"], answer: "Glucose" },
-      { question: "In which part of the plant does photosynthesis primarily occur?", choices: ["Roots", "Stem", "Leaves", "Flowers", "Fruits"], answer: "Leaves" }
+      {
+        question: "Which inheritance pattern is demonstrated by Trait A?",
+        choices: [
+          "Codominance",
+          "Incomplete dominance",
+          "Complete dominance",
+          "Sex-linked inheritance",
+          "Multiple alleles"
+        ],
+        answer: "Complete dominance",
+        explanation:
+          "The 3:1 ratio in F2 is characteristic of complete dominance"
+      },
+      {
+        question:
+          "What can be concluded about the alleles controlling Trait C?",
+        choices: [
+          "They are recessive",
+          "They are dominant",
+          "They show incomplete dominance",
+          "They are sex-linked",
+          "They are lethal"
+        ],
+        answer: "They show incomplete dominance",
+        explanation:
+          "The 1:2:1 ratio with intermediate phenotype indicates incomplete dominance"
+      }
     ]
   },
 
-  // Add more questions to reach 200
-  { type: "math", question: "What is the value of 9 squared?", choices: ["18", "27", "81", "72", "90"], answer: "81" },
-  { type: "math", question: "What is the perimeter of a rectangle with length 4 and width 3?", choices: ["10", "12", "14", "20", "16"], answer: "14" },
-  { type: "math", question: "If x = 3, what is 2x^2 - 4?", choices: ["8", "10", "4", "6", "2"], answer: "8" },
-  { type: "math", question: "What is 100 divided by 4?", choices: ["20", "25", "30", "35", "40"], answer: "25" },
-  { type: "math", question: "If the angles of a triangle are 60, 60, and x, what is the value of x?", choices: ["60", "45", "30", "90", "120"], answer: "60" },
-  { type: "math", question: "What is the slope of the line defined by the equation y = 3x + 2?", choices: ["1", "2", "3", "0", "-3"], answer: "3" },
-  { type: "math", question: "What is the distance between the points (1, 2) and (4, 6)?", choices: ["3", "5", "7", "4", "2"], answer: "5" },
-  { type: "math", question: "If the radius of a circle is 7, what is the area?", choices: ["14π", "28π", "49π", "42π", "36π"], answer: "49π" },
-  { type: "math", question: "What is the value of x in the equation 5x = 25?", choices: ["5", "10", "15", "20", "25"], answer: "5" },
-  { type: "math", question: "How many degrees are in a right angle?", choices: ["90", "180", "360", "45", "120"], answer: "90" },
-  { type: "science", question: "What is the chemical formula for water?", choices: ["H2O", "CO2", "O2", "NaCl", "C6H12O6"], answer: "H2O" },
-  { type: "science", question: "What process do plants use to convert sunlight into energy?", choices: ["Respiration", "Photosynthesis", "Fermentation", "Digestion", "Transpiration"], answer: "Photosynthesis" },
-  { type: "science", question: "What is the primary gas responsible for climate change?", choices: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Methane", "Hydrogen"], answer: "Carbon Dioxide" },
-  { type: "science", question: "What organelle is known as the powerhouse of the cell?", choices: ["Nucleus", "Mitochondria", "Ribosome", "Endoplasmic Reticulum", "Golgi Apparatus"], answer: "Mitochondria" },
-  { type: "science", question: "What is the force that pulls objects toward the center of the Earth?", choices: ["Friction", "Tension", "Gravity", "Magnetism", "Electromagnetism"], answer: "Gravity" },
-  { type: "science", question: "What type of bond involves the sharing of electron pairs between atoms?", choices: ["Ionic bond", "Covalent bond", "Hydrogen bond", "Metallic bond", "Van der Waals bond"], answer: "Covalent bond" },
-  { type: "science", question: "Which planet is known as the Red Planet?", choices: ["Earth", "Mars", "Jupiter", "Venus", "Saturn"], answer: "Mars" },
-  { type: "science", question: "What type of organism is a mushroom?", choices: ["Plant", "Animal", "Fungi", "Bacteria", "Virus"], answer: "Fungi" },
-  { type: "science", question: "Which human organ is responsible for pumping blood throughout the body?", choices: ["Brain", "Liver", "Lung", "Heart", "Kidney"], answer: "Heart" },
-  { type: "science", question: "What is the most abundant gas in the Earth's atmosphere?", choices: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Argon", "Hydrogen"], answer: "Nitrogen" },
+  // Math - Probability
+  {
+    type: "math",
+    question:
+      "In a card game, players draw two cards from a standard 52-card deck without replacement. If the first card is a heart, what is the probability that the second card is also a heart?",
+    choices: ["12/51", "13/51", "1/4", "12/52", "13/52"],
+    answer: "12/51",
+    explanation:
+      "After drawing one heart, 12 hearts remain out of 51 total cards"
+  },
 
-  { type: "english", question: "Which word is an antonym of 'happy'?", choices: ["Joyful", "Content", "Sad", "Cheerful", "Elated"], answer: "Sad" },
-  { type: "english", question: "What does the word 'metaphor' mean?", choices: ["A comparison without 'like' or 'as'", "A word that sounds like another", "A story that teaches a lesson", "An exaggerated statement", "A phrase that contradicts itself"], answer: "A comparison without 'like' or 'as'" },
-  { type: "english", question: "In literature, what is the term for the time and place of a story?", choices: ["Theme", "Setting", "Plot", "Conflict", "Character"], answer: "Setting" },
-  { type: "english", question: "What is a common theme in many fairy tales?", choices: ["Love conquers all", "The importance of hard work", "Friendship is key", "Good triumphs over evil", "Knowledge is power"], answer: "Good triumphs over evil" },
-  { type: "english", question: "What is the primary purpose of a conclusion in an essay?", choices: ["To introduce new ideas", "To summarize the main points", "To provide evidence", "To engage the reader", "To restate the thesis"], answer: "To summarize the main points" },
-  { type: "english", question: "Which of the following is an example of alliteration?", choices: ["She sells sea shells by the sea shore.", "The wind blew fiercely.", "He is as brave as a lion.", "The night sky was dark and deep.", "The car raced past."], answer: "She sells sea shells by the sea shore." },
-  { type: "english", question: "In poetry, what is a stanza?", choices: ["A single line", "A recurring theme", "A group of lines", "A rhyme scheme", "A type of meter"], answer: "A group of lines" },
-  { type: "english", question: "What is the term for the repetition of consonant sounds at the beginning of words?", choices: ["Assonance", "Alliteration", "Onomatopoeia", "Rhyme", "Imagery"], answer: "Alliteration" },
-  { type: "english", question: "Which of the following is a simile?", choices: ["He is a lion in battle.", "The stars are diamonds in the sky.", "She swims like a fish.", "Time is a thief.", "The wind howled."], answer: "She swims like a fish." },
-  { type: "english", question: "What is a primary source in research?", choices: ["A secondary summary", "An original document", "A website", "A textbook", "A newspaper article"], answer: "An original document" },
-  { type: "english", question: "What does the term 'tone' refer to in literature?", choices: ["The attitude of the author", "The setting of the story", "The main character", "The conflict", "The resolution"], answer: "The attitude of the author" },
-  { type: "english", question: "What is the main idea of a text?", choices: ["The specific details", "The overall message", "The conclusion", "The introduction", "The author's perspective"], answer: "The overall message" },
+  // Math - Geometry
+  {
+    type: "math",
+    question:
+      "A regular octagon is inscribed in a circle of radius 8 units. What is the area of the octagon?",
+    choices: [
+      "128",
+      "256 sin(π/8)",
+      "128(1 + sin(π/4))",
+      "64(2 + √2)",
+      "256 cos(π/8)"
+    ],
+    answer: "256 sin(π/8)",
+    explanation: "Area = 8r² × sin(π/8) where r is the radius"
+  },
 
-  // Add a few more to ensure we hit 200
-  { type: "math", question: "What is 7 multiplied by 8?", choices: ["56", "54", "60", "62", "64"], answer: "56" },
-  { type: "math", question: "What is the square root of 64?", choices: ["6", "7", "8", "9", "10"], answer: "8" },
-  { type: "math", question: "If a triangle has a base of 10 and height of 5, what is its area?", choices: ["25", "50", "15", "30", "20"], answer: "25" },
-  { type: "science", question: "What gas do plants absorb during photosynthesis?", choices: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen", "Helium"], answer: "Carbon Dioxide" },
-  { type: "science", question: "What is the primary source of energy for Earth?", choices: ["The moon", "The sun", "Volcanoes", "Geothermal energy", "Wind"], answer: "The sun" },
-  { type: "science", question: "Which part of the cell contains genetic material?", choices: ["Cytoplasm", "Ribosome", "Nucleus", "Mitochondria", "Cell membrane"], answer: "Nucleus" },
-  { type: "science", question: "What is the pH level of pure water?", choices: ["0", "7", "14", "10", "5"], answer: "7" },
-  { type: "science", question: "What is the largest planet in our solar system?", choices: ["Earth", "Jupiter", "Mars", "Venus", "Saturn"], answer: "Jupiter" },
-  { type: "science", question: "Which is the smallest unit of life?", choices: ["Tissue", "Organ", "Cell", "Organism", "System"], answer: "Cell" },
-  { type: "english", question: "What is the purpose of a thesis statement?", choices: ["To provide evidence", "To summarize the text", "To introduce the main idea", "To entertain the reader", "To conclude the argument"], answer: "To introduce the main idea" },
-  { type: "english", question: "What is the function of a metaphor?", choices: ["To provide a comparison", "To make a statement", "To rhyme", "To describe actions", "To define terms"], answer: "To provide a comparison" }
+  // Science - Physics
+  {
+    type: "science",
+    passage: `
+    Experiment: Students measured the period of pendulums with different lengths and masses:
+
+    Trial | Length (m) | Mass (g) | Period (s)
+    1     | 0.5       | 100      | 1.42
+    2     | 1.0       | 100      | 2.01
+    3     | 2.0       | 100      | 2.84
+    4     | 0.5       | 200      | 1.42
+    5     | 1.0       | 200      | 2.01
+    6     | 2.0       | 200      | 2.84
+    `,
+    questions: [
+      {
+        question:
+          "Based on the data, what factor affects the period of a pendulum?",
+        choices: [
+          "Mass only",
+          "Length only",
+          "Both mass and length",
+          "Neither mass nor length",
+          "Cannot be determined"
+        ],
+        answer: "Length only",
+        explanation:
+          "The period changes with length but remains constant when only mass changes"
+      }
+    ]
+  }
 ];
+
 
 let currentQuestions = [];
 let currentQuestionIndex = 0;
@@ -516,7 +910,7 @@ function checkAnswer(selectedAnswer) {
     feedback.innerText = 'Correct!';
     correctAnswers++;
   } else {
-    feedback.innerText = `Incorrect. The correct answer is: ${currentQuestion.answer}`;
+    feedback.innerText = `Incorrect.`;
     incorrectAnswers++;
   }
 
