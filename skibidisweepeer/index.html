@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>skibidisweeper</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    .game-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 420px;
+      margin-bottom: 10px;
+    }
+
+    .game-header div,
+    .game-header select,
+    .reset-btn {
+      background: #333;
+      color: #f8f9fa;
+      padding: 0.5em;
+      font-size: 0.9rem;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      width: 80px;
+      text-align: center;
+    }
+
+    .game-header select,
+    .reset-btn {
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .game-header select:focus,
+    .reset-btn:hover {
+      background: #555;
+    }
+
+    .game-container {
+      display: grid;
+      grid-template-columns: repeat(10, 40px);
+      gap: 4px;
+      margin-top: 20px;
+    }
+
+    .cell {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      background-color: #ddd;
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .flag-expanding {
+      position: absolute;
+      background-color: rgba(255, 204, 0, 0.8);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      animation: expand-flag 0.75s forwards;
+    }
+
+    @keyframes expand-flag {
+      0% {
+        width: 0;
+        height: 0;
+        transform: translate(-50%, -50%);
+      }
+
+      100% {
+        width: 1000%;
+        height: 1000%;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    .flag-shrinking {
+      animation: shrink-flag 0.5s forwards;
+    }
+
+    @keyframes shrink-flag {
+      0% {
+        width: 1000%;
+        height: 1000%;
+        transform: translate(-50%, -50%);
+      }
+
+      100% {
+        width: 0;
+        height: 0;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    @keyframes wash-green {
+      0% {
+        background-image: linear-gradient(to bottom right, #32CD32 5%, #ddd 5%);
+      }
+
+      5% {
+        background-image: linear-gradient(to bottom right, #32CD32 10%, #ddd 10%);
+      }
+
+      10% {
+        background-image: linear-gradient(to bottom right, #32CD32 15%, #ddd 15%);
+      }
+
+      15% {
+        background-image: linear-gradient(to bottom right, #32CD32 20%, #ddd 20%);
+      }
+
+      20% {
+        background-image: linear-gradient(to bottom right, #32CD32 25%, #ddd 25%);
+      }
+
+      25% {
+        background-image: linear-gradient(to bottom right, #32CD32 30%, #ddd 30%);
+      }
+
+      30% {
+        background-image: linear-gradient(to bottom right, #32CD32 35%, #ddd 35%);
+      }
+
+      35% {
+        background-image: linear-gradient(to bottom right, #32CD32 40%, #ddd 40%);
+      }
+
+      40% {
+        background-image: linear-gradient(to bottom right, #32CD32 45%, #ddd 45%);
+      }
+
+      45% {
+        background-image: linear-gradient(to bottom right, #32CD32 50%, #ddd 50%);
+      }
+
+      50% {
+        background-image: linear-gradient(to bottom right, #32CD32 55%, #ddd 55%);
+      }
+
+      55% {
+        background-image: linear-gradient(to bottom right, #32CD32 60%, #ddd 60%);
+      }
+
+      60% {
+        background-image: linear-gradient(to bottom right, #32CD32 65%, #ddd 65%);
+      }
+
+      65% {
+        background-image: linear-gradient(to bottom right, #32CD32 70%, #ddd 70%);
+      }
+
+      70% {
+        background-image: linear-gradient(to bottom right, #32CD32 75%, #ddd 75%);
+      }
+
+      75% {
+        background-image: linear-gradient(to bottom right, #32CD32 80%, #ddd 80%);
+      }
+
+      80% {
+        background-image: linear-gradient(to bottom right, #32CD32 85%, #ddd 85%);
+      }
+
+      85% {
+        background-image: linear-gradient(to bottom right, #32CD32 90%, #ddd 90%);
+      }
+
+      90% {
+        background-image: linear-gradient(to bottom right, #32CD32 95%, #ddd 95%);
+      }
+
+      95% {
+        background-image: linear-gradient(to bottom right, #32CD32 100%, #ddd 100%);
+      }
+
+      100% {
+        background-image: linear-gradient(to bottom right, #32CD32 100%, #ddd 100%);
+      }
+    }
+
+    @keyframes wash-red {
+      0% {
+        background-image: linear-gradient(to bottom right, #FF6B6B 5%, #ddd 5%);
+      }
+
+      5% {
+        background-image: linear-gradient(to bottom right, #FF6B6B 10%, #ddd 10%);
+      }
+
+      10% {
+        background-image: linear-gradient(to bottom right, #FF6B6B 15%, #ddd 15%);
+      }
+
+      15% {
+        background-image: linear-gradient(to bottom right, #FF6B6B 20%, #ddd 20%);
+      }
+
+      20% {
+        background-image: linear-gradient(to bottom right, #FF6B6B 25%, #ddd 25%);
+      }
+
+      25% {
+        background-image: linear-gradient(to bottom right, #FF6B6B 30%, #ddd 30%);
+      }
+
+      30% {
+        background-image: linear-gradient(to bottom right, #FF6B6B 35%, #ddd 35%);
+      }
+
+      35% {
+        background-image: linear-gradient(to bottom right, #FF6B6B 40%, #ddd 40%);
+      }
+
+      40% {
+        background-image: linear-gradient(to bottom right, #FF6B6B 45%, #ddd 45%);
+      }
+
+      45% {
+        background-image: linear-gradient(to bottom right, #FF6B6B 50%, #ddd 50%);
+      }
+
+      50% {
+        background-image: linear-gradient(to bottom right, #FF6B6B 55%, #ddd 55%);
+      }
+
+      55% {
+        background-image: linear-gradient(to bottom right, #FF6B6B 60%, #ddd 60%);
+      }
+
+      60% {
+        background-image: linear-gradient(to bottom right, #FF6B6B 65%, #ddd 65%);
+      }
+
+      65% {
+        background-image: linear-gradient(to bottom right, #FF6B6B 70%, #ddd 70%);
+      }
+
+      70% {
+        background-image: linear-gradient(to bottom right, #FF6B6B 75%, #ddd 75%);
+      }
+
+      75% {
+        background-image: linear-gradient(to bottom right, #FF6B6B 80%, #ddd 80%);
+      }
+
+      80% {
+        background-image: linear-gradient(to bottom right, #FF6B6B 85%, #ddd 85%);
+      }
+
+      85% {
+        background-image: linear-gradient(to bottom right, #FF6B6B 90%, #ddd 90%);
+      }
+
+      90% {
+        background-image: linear-gradient(to bottom right, #FF6B6B 95%, #ddd 95%);
+      }
+
+      95% {
+        background-image: linear-gradient(to bottom right, #FF6B6B 100%, #ddd 100%);
+      }
+
+      100% {
+        background-image: linear-gradient(to bottom right, #FF6B6B 100%, #ddd 100%);
+      }
+    }
+
+    .cell {
+      background-color: #ddd;
+      transition: transform 0.2s ease, background-color 0.3s ease;
+    }
+
+    .cell:hover {
+      background-color: #bbb;
+      transform: scale(1.05);
+    }
+
+    .cell.mine {
+      animation: wash-red 0.3s forwards;
+      color: #FF6B6B;
+    }
+
+    .cell.win {
+      animation: wash-green 0.3s forwards;
+      color: #32CD32;
+    }
+
+    .cell.open {
+      background-color: #FFF;
+      cursor: default;
+    }
+
+    .one {
+      color: #1E90FF;
+    }
+
+    .two {
+      color: #32CD32;
+    }
+
+    .three {
+      color: #FF4500;
+    }
+
+    .four {
+      color: #8A2BE2;
+    }
+
+    #message {
+      margin-top: 15px;
+      font-size: 1.3rem;
+      color: #333;
+      text-align: center;
+      transition: color 0.3s;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="game-header">
+    <div id="mineCounter">Mines: 4</div>
+    <button class="reset-btn" onclick="resetGame()">Reset</button>
+    <div id="timer">Time: 0</div>
+    <button class="reset-btn" onclick="difficulty()">Difficulty</button>
+  </div>
+
+  <div class="game-container" id="board"></div>
+  <div id="message"></div>
+
+  <script>
+    let rows = 4;
+    let cols = 4;
+    let mineCount = 2;
+    let cells = [];
+    let minePositions = new Set();
+    let flaggedMines = new Set();
+    let timer;
+    let secondsElapsed = 0;
+    let revealedCells = 0;
+    const board = document.getElementById("board");
+    const mineCounter = document.getElementById("mineCounter");
+    const timerDisplay = document.getElementById("timer");
+    const message = document.getElementById("message");
+    let a = 0;
+
+    function difficulty() {
+      if (a === 0) {
+        mineCount = 10;
+        rows = 8;
+        cols = 8;
+        a++;
+      } else if (a === 1) {
+        mineCount = 15;
+        rows = 10;
+        cols = 10;
+        a++;
+      } else if (a === 2) {
+        mineCount = 20;
+        rows = 12;
+        cols = 12;
+        a++;
+      } else if (a >= 2) {
+        a = 0;
+        mineCount = 2;
+        rows = 4;
+        cols = 4;
+      }
+      resetGame();
+      console.log(a);
+    }
+
+    function startTimer() {
+      let secondsElapsed = 0;
+      let minutesElapsed = 0;
+      timerDisplay.innerText = "Time: 00:00";
+      timer = setInterval(() => {
+        secondsElapsed++;
+        if (secondsElapsed === 60) {
+          minutesElapsed++;
+          secondsElapsed = 0;
+        }
+        const formattedMinutes = minutesElapsed.toString().padStart(2, '0');
+        const formattedSeconds = secondsElapsed.toString().padStart(2, '0');
+        timerDisplay.innerText = `Time: ${formattedMinutes}:${formattedSeconds}`;
+      }, 1000);
+    }
+
+    function stopTimer() {
+      clearInterval(timer);
+    }
+
+    function resetGame() {
+      stopTimer();
+      startTimer();
+      revealedCells = 0;
+      flaggedMines.clear();
+      minePositions = generateMines(rows, cols, mineCount);
+      board.innerHTML = '';
+      message.innerText = '';
+      mineCounter.innerText = `Mines: ${mineCount}`;
+      board.style.gridTemplateColumns = `repeat(${cols}, 40px)`;
+      createBoard();
+    }
+
+    function createBoard() {
+      cells = [];
+      for (let row = 0; row < rows; row++) {
+        cells[row] = [];
+        for (let col = 0; col < cols; col++) {
+          const cell = document.createElement("div");
+          cell.classList.add("cell");
+          cell.dataset.row = row;
+          cell.dataset.col = col;
+          cell.dataset.mine = minePositions.has(`${row},${col}`);
+          cell.dataset.open = false;
+          cell.addEventListener("click", (e) => revealCell(e, cell));
+          cell.addEventListener("contextmenu", (e) => {
+            e.preventDefault();
+            toggleFlag(e, cell);
+          });
+          cells[row][col] = cell;
+          board.appendChild(cell);
+        }
+      }
+    }
+
+    function generateMines(rows, cols, count) {
+      const positions = new Set();
+      while (positions.size < count) {
+        const row = Math.floor(Math.random() * rows);
+        const col = Math.floor(Math.random() * cols);
+        positions.add(`${row},${col}`);
+      }
+      return positions;
+    }
+
+    function revealCell(e, cell) {
+      if (cell.dataset.open === "true" || cell.classList.contains("flag")) return;
+      const row = parseInt(cell.dataset.row);
+      const col = parseInt(cell.dataset.col);
+      cell.dataset.open = true;
+      cell.classList.add("open");
+      revealedCells++;
+      if (cell.dataset.mine === "true") {
+        cell.classList.add("mine");
+        endGame(false);
+        return;
+      }
+      const mineCount = countAdjacentMines(row, col);
+      if (mineCount > 0) {
+        cell.innerText = mineCount;
+        cell.classList.add(numberClass(mineCount));
+      } else {
+        revealAdjacentCells(row, col);
+      }
+      if (revealedCells === rows * cols - mineCount) {
+        endGame(true);
+      }
+    }
+
+    function toggleFlag(e, cell) {
+      if (cell.dataset.open === "true") return;
+      const rect = cell.getBoundingClientRect();
+      const offsetX = e.clientX - rect.left;
+      const offsetY = e.clientY - rect.top;
+      let expandingFlag = cell.querySelector('.flag-expanding');
+      if (!expandingFlag) {
+        expandingFlag = document.createElement('div');
+        expandingFlag.classList.add('flag-expanding');
+        cell.appendChild(expandingFlag);
+      }
+      expandingFlag.style.left = `${offsetX}px`;
+      expandingFlag.style.top = `${offsetY}px`;
+      if (cell.classList.contains("flag")) {
+        expandingFlag.classList.add('flag-shrinking');
+        setTimeout(() => {
+          cell.classList.remove("flag");
+          expandingFlag.remove();
+        }, 750);
+      } else {
+        cell.classList.add("flag");
+      }
+    }
+
+    function countAdjacentMines(row, col) {
+      const directions = [
+        [-1, 0],
+        [1, 0],
+        [0, -1],
+        [0, 1],
+        [-1, -1],
+        [1, 1],
+        [-1, 1],
+        [1, -1]
+      ];
+      let count = 0;
+      for (const [dx, dy] of directions) {
+        const newRow = row + dx;
+        const newCol = col + dy;
+        if (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols &&
+          cells[newRow][newCol].dataset.mine === "true") {
+          count++;
+        }
+      }
+      return count;
+    }
+
+    function revealAdjacentCells(row, col) {
+      const directions = [
+        [-1, 0],
+        [1, 0],
+        [0, -1],
+        [0, 1],
+        [-1, -1],
+        [1, 1],
+        [-1, 1],
+        [1, -1]
+      ];
+      for (const [dx, dy] of directions) {
+        const newRow = row + dx;
+        const newCol = col + dy;
+        if (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols) {
+          const adjacentCell = cells[newRow][newCol];
+          if (adjacentCell.dataset.open === "false" && !adjacentCell.classList.contains("flag")) {
+            revealCell(null, adjacentCell);
+          }
+        }
+      }
+    }
+
+    function numberClass(number) {
+      if (number === 1) return "one";
+      if (number === 2) return "two";
+      if (number === 3) return "three";
+      return "four";
+    }
+
+    function endGame(win) {
+      stopTimer();
+      if (win) {
+        message.style.color = "#32CD32";
+        cells.forEach(row => {
+          row.forEach(cell => {
+            if (cell.dataset.mine === "true") {
+              cell.classList.remove("flag");
+              cell.classList.add("win");
+            }
+          });
+        });
+      } else {
+        message.style.color = "#FF4500";
+        cells.forEach(row => {
+          row.forEach(cell => {
+            if (cell.dataset.mine === "true" && !cell.classList.contains("flag")) {
+              cell.classList.add("mine");
+            }
+          });
+        });
+      }
+    }
+    resetGame();
+  </script>
+
+</body>
+
+</html>
