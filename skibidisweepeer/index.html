@@ -1016,23 +1016,22 @@ function toggleFlag(e, cell) {
     expandingFlag.classList.add('flag-expanding');
     cell.appendChild(expandingFlag);
   }
-  
+
   expandingFlag.style.left = `${offsetX}px`;
   expandingFlag.style.top = `${offsetY}px`;
 
   if (cell.classList.contains("flag")) {
-
     expandingFlag.classList.add('flag-shrinking');
     setTimeout(() => {
       cell.classList.remove("flag");
       expandingFlag.remove();
-      
+
       if (cell.dataset.mine === "true") {
         correctFlags--;
       }
 
       if (correctFlags === mineCount) {
-        endGame(true);  
+        endGame(true);
       }
     }, 750);
   } else {
@@ -1043,9 +1042,13 @@ function toggleFlag(e, cell) {
     }
 
     if (correctFlags === mineCount) {
-      endGame(true);
+      endGame(true);  
     }
   }
+}
+
+function countMines() {
+  return mineCount;
 }
 
     function countAdjacentMines(row, col) {
