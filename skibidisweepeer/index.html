@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -411,22 +412,22 @@
 
     .theme-menu.active .theme-option:nth-child(1) {
       transform: rotate(-90deg) translate(-44px) rotate(90deg);
-      transition-delay: 0.3s; 
+      transition-delay: 0.3s;
     }
 
     .theme-menu.active .theme-option:nth-child(2) {
       transform: rotate(-45deg) translate(-44px) rotate(45deg);
-      transition-delay: 0.2s; 
+      transition-delay: 0.2s;
     }
 
     .theme-menu.active .theme-option:nth-child(3) {
       transform: rotate(0deg) translate(-44px) rotate(0deg);
-      transition-delay: 0.1s; 
+      transition-delay: 0.1s;
     }
 
     .theme-menu.active .theme-option:nth-child(4) {
       transform: rotate(45deg) translate(-44px) rotate(-45deg);
-      transition-delay: 0s; 
+      transition-delay: 0s;
     }
 
     .theme-option:hover {
@@ -435,6 +436,7 @@
       scale: 1.1;
       transition: transform 5s ease;
     }
+
     .theme-switcher {
       position: absolute;
       top: 30px;
@@ -505,22 +507,22 @@
 
     .theme-menu.active .theme-option:nth-child(1) {
       transform: rotate(-90deg) translate(-44px) rotate(90deg);
-      transition-delay: 0.3s; 
+      transition-delay: 0.3s;
     }
 
     .theme-menu.active .theme-option:nth-child(2) {
       transform: rotate(-45deg) translate(-44px) rotate(45deg);
-      transition-delay: 0.2s; 
+      transition-delay: 0.2s;
     }
 
     .theme-menu.active .theme-option:nth-child(3) {
       transform: rotate(0deg) translate(-44px) rotate(0deg);
-      transition-delay: 0.1s; 
+      transition-delay: 0.1s;
     }
 
     .theme-menu.active .theme-option:nth-child(4) {
       transform: rotate(45deg) translate(-44px) rotate(-45deg);
-      transition-delay: 0s; 
+      transition-delay: 0s;
     }
 
     .theme-option:hover {
@@ -550,275 +552,271 @@
       color: #333;
     }
 
+    html[data-theme="dark"] body {
+      background-color: #121212;
+      color: #eaeaea;
+    }
 
-html[data-theme="dark"] body {
-  background-color: #121212; 
-  color: #eaeaea;
-}
+    html[data-theme="dark"] .game-header div,
+    html[data-theme="dark"] .game-header select,
+    html[data-theme="dark"] .reset-btn {
+      background: #333;
+      color: #eaeaea;
+      border-radius: 8px;
+      padding: 0.5em;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      width: 80px;
+      text-align: center;
+    }
 
-html[data-theme="dark"] .game-header div,
-html[data-theme="dark"] .game-header select,
-html[data-theme="dark"] .reset-btn {
-  background: #333; 
-  color: #eaeaea; 
-  border-radius: 8px;
-  padding: 0.5em;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  width: 80px;
-  text-align: center;
-}
+    html[data-theme="dark"] .game-header select,
+    html[data-theme="dark"] .reset-btn {
+      cursor: pointer;
+      transition: background 0.3s;
+    }
 
-html[data-theme="dark"] .game-header select,
-html[data-theme="dark"] .reset-btn {
-  cursor: pointer;
-  transition: background 0.3s;
-}
+    html[data-theme="dark"] .game-header select:focus,
+    html[data-theme="dark"] .reset-btn:hover {
+      background: #555;
+    }
 
-html[data-theme="dark"] .game-header select:focus,
-html[data-theme="dark"] .reset-btn:hover {
-  background: #555;
-}
+    html[data-theme="dark"] .game-container {
+      background-color: #1e1e1e;
+    }
 
-html[data-theme="dark"] .game-container {
-  background-color: #1e1e1e;
-}
+    html[data-theme="dark"] .cell {
+      background-color: #333;
+      color: #eaeaea;
+      transition: transform 0.2s ease, background-color 0.3s ease;
+    }
 
-html[data-theme="dark"] .cell {
-  background-color: #333; 
-  color: #eaeaea; 
-  transition: transform 0.2s ease, background-color 0.3s ease;
-}
+    html[data-theme="dark"] .cell:hover {
+      background-color: #444;
+      transform: scale(1.05);
+    }
 
-html[data-theme="dark"] .cell:hover {
-  background-color: #444; 
-  transform: scale(1.05);
-}
+    html[data-theme="dark"] .cell.mine {
+      animation: wash-red 0.3s forwards;
+      color: #FF6B6B;
+    }
 
-html[data-theme="dark"] .cell.mine {
-  animation: wash-red 0.3s forwards;
-  color: #FF6B6B;
-}
+    html[data-theme="dark"] .cell.win {
+      animation: wash-green 0.3s forwards;
+      color: #32CD32;
+    }
 
-html[data-theme="dark"] .cell.win {
-  animation: wash-green 0.3s forwards;
-  color: #32CD32; 
-}
+    html[data-theme="dark"] .cell.open {
+      background-color: #1e1e1e;
+      color: #eaeaea;
+    }
 
-html[data-theme="dark"] .cell.open {
-  background-color: #1e1e1e;
-  color: #eaeaea; 
-}
+    html[data-theme="dark"] .one {
+      color: #00BFFF !important;
+    }
 
-html[data-theme="dark"] .one {
-  color: #00BFFF !important;
-}
+    html[data-theme="dark"] .two {
+      color: #32CD32 !important;
+    }
 
-html[data-theme="dark"] .two {
-  color: #32CD32 !important;
-}
+    html[data-theme="dark"] .three {
+      color: #FF6347 !important;
+    }
 
-html[data-theme="dark"] .three {
-  color: #FF6347 !important;
-}
+    html[data-theme="dark"] .four {
+      color: #8A2BE2 !important;
+    }
 
-html[data-theme="dark"] .four {
-  color: #8A2BE2 !important;
-}
+    html[data-theme="dark"] #message {
+      margin-top: 15px;
+      font-size: 1.3rem;
+      color: #eaeaea;
+      text-align: center;
+      transition: color 0.3s;
+    }
 
-html[data-theme="dark"] #message {
-  margin-top: 15px;
-  font-size: 1.3rem;
-  color: #eaeaea; 
-  text-align: center;
-  transition: color 0.3s;
-}
+    html[data-theme="pastel"] body {
+      background-color: #e0f7fa;
+      color: #2f4f4f;
+    }
 
-html[data-theme="pastel"] body {
-  background-color: #e0f7fa;
-  color: #2f4f4f; 
-}
+    html[data-theme="pastel"] .game-header div,
+    html[data-theme="pastel"] .game-header select,
+    html[data-theme="pastel"] .reset-btn {
+      background: #a7c7e7;
+      color: #2f4f4f;
+      border-radius: 8px;
+      padding: 0.5em;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      width: 80px;
+      text-align: center;
+    }
 
-html[data-theme="pastel"] .game-header div,
-html[data-theme="pastel"] .game-header select,
-html[data-theme="pastel"] .reset-btn {
-  background: #a7c7e7; 
-  color: #2f4f4f;
-  border-radius: 8px;
-  padding: 0.5em;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  width: 80px;
-  text-align: center;
-}
+    html[data-theme="pastel"] .game-header select,
+    html[data-theme="pastel"] .reset-btn {
+      cursor: pointer;
+      transition: background 0.3s;
+    }
 
-html[data-theme="pastel"] .game-header select,
-html[data-theme="pastel"] .reset-btn {
-  cursor: pointer;
-  transition: background 0.3s;
-}
+    html[data-theme="pastel"] .game-header select:focus,
+    html[data-theme="pastel"] .reset-btn:hover {
+      background: #84b6d2;
+    }
 
-html[data-theme="pastel"] .game-header select:focus,
-html[data-theme="pastel"] .reset-btn:hover {
-  background: #84b6d2; 
-}
+    html[data-theme="pastel"] .game-container {
+      background-color: #e0f7fa;
+    }
 
-html[data-theme="pastel"] .game-container {
-  background-color: #e0f7fa; 
-}
+    html[data-theme="pastel"] .cell {
+      background-color: #ffb6b9;
+      color: #2f4f4f;
+      transition: transform 0.2s ease, background-color 0.3s ease;
+    }
 
-html[data-theme="pastel"] .cell {
-  background-color: #ffb6b9; 
-  color: #2f4f4f; 
-  transition: transform 0.2s ease, background-color 0.3s ease;
-}
+    html[data-theme="pastel"] .cell:hover {
+      background-color: #ff8da1;
+      transform: scale(1.05);
+    }
 
-html[data-theme="pastel"] .cell:hover {
-  background-color: #ff8da1; 
-  transform: scale(1.05);
-}
+    html[data-theme="pastel"] .cell.mine {
+      animation: wash-red 0.3s forwards;
+      color: #ff4d4d;
+    }
 
-html[data-theme="pastel"] .cell.mine {
-  animation: wash-red 0.3s forwards;
-  color: #ff4d4d; 
-}
+    html[data-theme="pastel"] .cell.win {
+      animation: wash-green 0.3s forwards;
+      color: #80e27e;
+    }
 
-html[data-theme="pastel"] .cell.win {
-  animation: wash-green 0.3s forwards;
-  color: #80e27e; 
-}
+    html[data-theme="pastel"] .cell.open {
+      background-color: #ffffff;
+      color: #2f4f4f;
+    }
 
-html[data-theme="pastel"] .cell.open {
-  background-color: #ffffff; 
-  color: #2f4f4f; 
-}
+    html[data-theme="pastel"] .one {
+      color: #a7ffeb !important;
+    }
 
-html[data-theme="pastel"] .one {
-  color: #a7ffeb !important; 
-}
+    html[data-theme="pastel"] .two {
+      color: #c8e6c9 !important;
+    }
 
-html[data-theme="pastel"] .two {
-  color: #c8e6c9 !important; 
-}
+    html[data-theme="pastel"] .three {
+      color: #ffcc80 !important;
+    }
 
-html[data-theme="pastel"] .three {
-  color: #ffcc80 !important; 
-}
+    html[data-theme="pastel"] .four {
+      color: #f3e5f5 !important;
+    }
 
-html[data-theme="pastel"] .four {
-  color: #f3e5f5 !important; 
-}
+    html[data-theme="pastel"] #message {
+      margin-top: 15px;
+      font-size: 1.3rem;
+      color: #2f4f4f;
+      text-align: center;
+      transition: color 0.3s;
+    }
 
-html[data-theme="pastel"] #message {
-  margin-top: 15px;
-  font-size: 1.3rem;
-  color: #2f4f4f;
-  text-align: center;
-  transition: color 0.3s;
-}
+    html[data-theme="retro"] body {
+      background-color: #1d1d1d;
+      color: #f1f1f1;
+    }
 
-    
-html[data-theme="retro"] body {
-  background-color: #1d1d1d;
-  color: #f1f1f1;
-}
+    html[data-theme="retro"] .game-header div,
+    html[data-theme="retro"] .game-header select,
+    html[data-theme="retro"] .reset-btn {
+      background: #ff6600;
+      color: #1d1d1d;
+      border-radius: 8px;
+      padding: 0.5em;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 45px;
+      width: 90px;
+      text-align: center;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+    }
 
-html[data-theme="retro"] .game-header div,
-html[data-theme="retro"] .game-header select,
-html[data-theme="retro"] .reset-btn {
-  background: #ff6600;
-  color: #1d1d1d;
-  border-radius: 8px;
-  padding: 0.5em;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 45px;
-  width: 90px;
-  text-align: center;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
-}
+    html[data-theme="retro"] .game-header select,
+    html[data-theme="retro"] .reset-btn {
+      cursor: pointer;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
 
-html[data-theme="retro"] .game-header select,
-html[data-theme="retro"] .reset-btn {
-  cursor: pointer;
-  transition: background 0.3s, box-shadow 0.3s;
-}
+    html[data-theme="retro"] .game-header select:focus,
+    html[data-theme="retro"] .reset-btn:hover {
+      background: #ff4500;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+    }
 
-html[data-theme="retro"] .game-header select:focus,
-html[data-theme="retro"] .reset-btn:hover {
-  background: #ff4500;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
-}
+    html[data-theme="retro"] .game-container {
+      background-color: #2c2c2c;
+    }
 
-html[data-theme="retro"] .game-container {
-  background-color: #2c2c2c;
-}
+    html[data-theme="retro"] .cell {
+      background-color: #444444;
+      color: #f1f1f1;
+      transition: transform 0.2s ease, background-color 0.3s ease;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+    }
 
-html[data-theme="retro"] .cell {
-  background-color: #444444;
-  color: #f1f1f1;
-  transition: transform 0.2s ease, background-color 0.3s ease;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
-}
+    html[data-theme="retro"] .cell:hover {
+      background-color: #666666;
+      transform: scale(1.05);
+    }
 
-html[data-theme="retro"] .cell:hover {
-  background-color: #666666;
-  transform: scale(1.05);
-}
+    html[data-theme="retro"] .cell.mine {
+      animation: wash-red 0.3s forwards;
+      color: #ff3333;
+    }
 
-html[data-theme="retro"] .cell.mine {
-  animation: wash-red 0.3s forwards;
-  color: #ff3333;
-}
+    html[data-theme="retro"] .cell.win {
+      animation: wash-green 0.3s forwards;
+      color: #00ff00;
+    }
 
-html[data-theme="retro"] .cell.win {
-  animation: wash-green 0.3s forwards;
-  color: #00ff00;
-}
+    html[data-theme="retro"] .cell.open {
+      background-color: #333333;
+      color: #f1f1f1;
+    }
 
-html[data-theme="retro"] .cell.open {
-  background-color: #333333;
-  color: #f1f1f1;
-}
+    html[data-theme="retro"] .one {
+      color: #00bfff !important;
+    }
 
-html[data-theme="retro"] .one {
-  color: #00bfff !important;
-}
+    html[data-theme="retro"] .two {
+      color: #32cd32 !important;
+    }
 
-html[data-theme="retro"] .two {
-  color: #32cd32 !important;
-}
+    html[data-theme="retro"] .three {
+      color: #ff6347 !important;
+    }
 
-html[data-theme="retro"] .three {
-  color: #ff6347 !important;
-}
+    html[data-theme="retro"] .four {
+      color: #8a2be2 !important;
+    }
 
-html[data-theme="retro"] .four {
-  color: #8a2be2 !important;
-}
-
-html[data-theme="retro"] #message {
-  margin-top: 15px;
-  font-size: 1.3rem;
-  color: #f1f1f1;
-  text-align: center;
-  transition: color 0.3s;
-}
-
-
+    html[data-theme="retro"] #message {
+      margin-top: 15px;
+      font-size: 1.3rem;
+      color: #f1f1f1;
+      text-align: center;
+      transition: color 0.3s;
+    }
   </style>
 </head>
 
 <body>
-<div class="theme-switcher">
+  <div class="theme-switcher">
     <button class="theme-btn" onclick="toggleThemeMenu()"></button>
     <div class="theme-menu">
       <div class="theme-option" data-theme="light" onclick="setTheme('light')"></div>
@@ -827,7 +825,7 @@ html[data-theme="retro"] #message {
       <div class="theme-option" data-theme="retro" onclick="setTheme('retro')"></div>
     </div>
   </div>
-  
+
   <div class="game-header">
     <div id="mineCounter">Mines: 4</div>
     <button class="reset-btn" onclick="resetGame()">Reset</button>
@@ -854,40 +852,8 @@ html[data-theme="retro"] #message {
     const message = document.getElementById("message");
     let a = 0;
     let correctFlags = 0;
-
-function toggleThemeMenu() {
-      const menu = document.querySelector('.theme-menu');
-      const btn = document.querySelector('.theme-btn');
-      menu.classList.toggle('active');
-      btn.classList.toggle('active');
-    }
-
-    document.addEventListener('click', (e) => {
-      const menu = document.querySelector('.theme-menu');
-      const btn = document.querySelector('.theme-btn');
-      if (!menu.contains(e.target) && !btn.contains(e.target)) {
-        menu.classList.remove('active');
-        btn.classList.remove('active');
-      }
-    });
-
-    function setTheme(theme) {
-      document.documentElement.setAttribute('data-theme', theme);
-      localStorage.setItem('theme', theme);
-      
-      const menu = document.querySelector('.theme-menu');
-      const btn = document.querySelector('.theme-btn');
-      menu.classList.remove('active');
-      btn.classList.remove('active');
-    }
-
-    function loadTheme() {
-      const savedTheme = localStorage.getItem('theme') || 'light';
-      document.documentElement.setAttribute('data-theme', savedTheme);
-    }
-
-    loadTheme();
-
+    let isFirstClick = true;
+    // Previous theme-related functions remain the same
     function difficulty() {
       if (a === 0) {
         mineCount = 10;
@@ -939,7 +905,8 @@ function toggleThemeMenu() {
       startTimer();
       revealedCells = 0;
       flaggedMines.clear();
-      minePositions = generateMines(rows, cols, mineCount);
+      minePositions.clear();
+      isFirstClick = true;
       board.innerHTML = '';
       message.innerText = '';
       mineCounter.innerText = `Mines: ${mineCount}`;
@@ -956,7 +923,7 @@ function toggleThemeMenu() {
           cell.classList.add("cell");
           cell.dataset.row = row;
           cell.dataset.col = col;
-          cell.dataset.mine = minePositions.has(`${row},${col}`);
+          cell.dataset.mine = "false";
           cell.dataset.open = false;
           cell.addEventListener("click", (e) => revealCell(e, cell));
           cell.addEventListener("contextmenu", (e) => {
@@ -969,13 +936,32 @@ function toggleThemeMenu() {
       }
     }
 
-    function generateMines(rows, cols, count) {
+    function generateMines(firstRow, firstCol) {
       const positions = new Set();
-      while (positions.size < count) {
+      const safeZone = new Set();
+      // Add first clicked cell and its surrounding cells to safe zone
+      for (let dx = -1; dx <= 1; dx++) {
+        for (let dy = -1; dy <= 1; dy++) {
+          const newRow = firstRow + dx;
+          const newCol = firstCol + dy;
+          if (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols) {
+            safeZone.add(`${newRow},${newCol}`);
+          }
+        }
+      }
+      while (positions.size < mineCount) {
         const row = Math.floor(Math.random() * rows);
         const col = Math.floor(Math.random() * cols);
-        positions.add(`${row},${col}`);
+        const pos = `${row},${col}`;
+        if (!safeZone.has(pos)) {
+          positions.add(pos);
+        }
       }
+      // Update cell mine status
+      positions.forEach(pos => {
+        const [row, col] = pos.split(',').map(Number);
+        cells[row][col].dataset.mine = "true";
+      });
       return positions;
     }
 
@@ -983,6 +969,10 @@ function toggleThemeMenu() {
       if (cell.dataset.open === "true" || cell.classList.contains("flag")) return;
       const row = parseInt(cell.dataset.row);
       const col = parseInt(cell.dataset.col);
+      if (isFirstClick) {
+        minePositions = generateMines(row, col);
+        isFirstClick = false;
+      }
       cell.dataset.open = true;
       cell.classList.add("open");
       revealedCells++;
@@ -1003,53 +993,45 @@ function toggleThemeMenu() {
       }
     }
 
-function toggleFlag(e, cell) {
-  if (cell.dataset.open === "true") return;
-
-  const rect = cell.getBoundingClientRect();
-  const offsetX = e.clientX - rect.left;
-  const offsetY = e.clientY - rect.top;
-
-  let expandingFlag = cell.querySelector('.flag-expanding');
-  if (!expandingFlag) {
-    expandingFlag = document.createElement('div');
-    expandingFlag.classList.add('flag-expanding');
-    cell.appendChild(expandingFlag);
-  }
-
-  expandingFlag.style.left = `${offsetX}px`;
-  expandingFlag.style.top = `${offsetY}px`;
-
-  if (cell.classList.contains("flag")) {
-    expandingFlag.classList.add('flag-shrinking');
-    setTimeout(() => {
-      cell.classList.remove("flag");
-      expandingFlag.remove();
-
-      if (cell.dataset.mine === "true") {
-        correctFlags--;
+    function toggleFlag(e, cell) {
+      if (cell.dataset.open === "true") return;
+      const rect = cell.getBoundingClientRect();
+      const offsetX = e.clientX - rect.left;
+      const offsetY = e.clientY - rect.top;
+      let expandingFlag = cell.querySelector('.flag-expanding');
+      if (!expandingFlag) {
+        expandingFlag = document.createElement('div');
+        expandingFlag.classList.add('flag-expanding');
+        cell.appendChild(expandingFlag);
       }
-
-      if (correctFlags === mineCount) {
-        endGame(true);
+      expandingFlag.style.left = `${offsetX}px`;
+      expandingFlag.style.top = `${offsetY}px`;
+      if (cell.classList.contains("flag")) {
+        expandingFlag.classList.add('flag-shrinking');
+        setTimeout(() => {
+          cell.classList.remove("flag");
+          expandingFlag.remove();
+          if (cell.dataset.mine === "true") {
+            correctFlags--;
+          }
+          if (correctFlags === mineCount) {
+            endGame(true);
+          }
+        }, 750);
+      } else {
+        cell.classList.add("flag");
+        if (cell.dataset.mine === "true") {
+          correctFlags++;
+        }
+        if (correctFlags === mineCount) {
+          endGame(true);
+        }
       }
-    }, 750);
-  } else {
-    cell.classList.add("flag");
-
-    if (cell.dataset.mine === "true") {
-      correctFlags++;
     }
 
-    if (correctFlags === mineCount) {
-      endGame(true);  
+    function countMines() {
+      return mineCount;
     }
-  }
-}
-
-function countMines() {
-  return mineCount;
-}
 
     function countAdjacentMines(row, col) {
       const directions = [
