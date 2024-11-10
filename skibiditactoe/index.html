@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>skibidi-tac-toe</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #6b7b8c, #3e5060);
+      font-family: 'Roboto', sans-serif;
+      color: #f2f2f2;
+      overflow: auto;
+    }
+
+    .game-container {
+      text-align: center;
+      padding: 20px;
+      border-radius: 15px;
+      background: rgba(0, 0, 0, 0.7);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      width: 100%;
+      max-width: 800px;
+      max-height: 90vh;
+      overflow-y: auto;
+      animation: popIn 0.6s ease-out forwards;
+      transform: scale(0.9);
+      opacity: 0;
+    }
+
+    @keyframes popIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .status {
+      font-size: 2em;
+      margin-bottom: 15px;
+      font-weight: 500;
+      color: #ff7b7b;
+    }
+
+    .scoreboard {
+      display: flex;
+      justify-content: space-around;
+      font-size: 1.2em;
+      margin-bottom: 15px;
+      padding: 10px 0;
+      border-top: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+      color: #ffdf70;
+    }
+
+    .ultimate-board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 20px;
+      width: 100%;
+      height: 100%;
+      justify-items: center;
+      align-items: center;
+      grid-template-rows: repeat(3, 1fr);
+    }
+
+    .local-board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      background-color: #404040;
+      padding: 8px;
+      border-radius: 12px;
+      width: 100%;
+      padding-bottom: 100%;
+      position: relative;
+      transition: transform 0.2s ease;
+      aspect-ratio: 1;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    .cell {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 3vw;
+      background-color: #333;
+      color: #ffdf70;
+      border-radius: 10px;
+      cursor: pointer;
+      transform: scale(1);
+      opacity: 0;
+      animation: fadeIn 0.5s forwards;
+      transition: transform 0.3s, background-color 0.2s ease-in-out;
+      aspect-ratio: 1;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: scale(0);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .cell:hover {
+      transform: scale(1.1);
+      transition: transform 0.3s, background-color 0.2s ease-in-out;
+    }
+
+    .x-hover:hover {
+      background-color: #ff7b7b;
+    }
+
+    .o-hover:hover {
+      background-color: #70b0ff;
+    }
+
+    .cell.x {
+      color: #ff7b7b;
+      font-weight: bold;
+    }
+
+    .cell.o {
+      color: #70b0ff;
+      font-weight: bold;
+    }
+
+    .active-board {
+      border: 2px solid #ffdf70;
+      transform: scale(1.05);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 10px #ffdf70;
+      }
+
+      50% {
+        box-shadow: 0 0 20px #ffdf70;
+      }
+
+      100% {
+        box-shadow: 0 0 10px #ffdf70;
+      }
+    }
+
+    .cell.locked {
+      animation: shake 0.4s ease-in-out;
+    }
+
+    @keyframes shake {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      25% {
+        transform: translateX(-5px);
+      }
+
+      50% {
+        transform: translateX(5px);
+      }
+
+      75% {
+        transform: translateX(-5px);
+      }
+    }
+
+    .won-board {
+      position: relative;
+      background-color: rgba(0, 0, 0, 0.8);
+      animation: glow 1.2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      0% {
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      }
+
+      100% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+      }
+    }
+
+    .won-board::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 2em;
+      font-weight: bold;
+    }
+
+    .won-board.x::after {
+      content: 'X';
+    }
+
+    .won-board.o::after {
+      content: 'O';
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.8);
+      font-size: 2.5em;
+      color: #ffdf70;
+      padding: 20px;
+      transition: opacity 0.3s ease;
+      opacity: 0;
+    }
+
+    .modal.show {
+      display: flex;
+      opacity: 1;
+    }
+
+    #winner-message {
+      animation: slideIn 0.5s ease-out;
+    }
+
+    @keyframes slideIn {
+      0% {
+        transform: translateY(-50%);
+        opacity: 0;
+      }
+
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .reset-button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 1.1em;
+      background-color: #ff7b7b;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .reset-button:hover {
+      background-color: #ff5a5a;
+      animation: bounce 0.5s ease-in-out;
+    }
+
+    @keyframes bounce {
+      0% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+
+      100% {
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="game-container">
+    <div class="status">Player X's turn</div>
+    <div class="scoreboard">
+      <span>Player X: <span id="x-wins">0</span></span>
+      <span>Player O: <span id="o-wins">0</span></span>
+    </div>
+    <div class="ultimate-board" id="ultimate-board"></div>
+    <button class="reset-button" onclick="resetGame()">Reset Game</button>
+  </div>
+
+  <div class="modal" id="winner-modal">
+    <div id="winner-message"></div>
+  </div>
+
+  <script>
+    let currentPlayer = 'X';
+    let nextBoard = -1;
+    let gameBoards = Array(9).fill().map(() => Array(9).fill(''));
+    let boardWinners = Array(9).fill('');
+    let gameWinner = null;
+    let xWins = 0,
+      oWins = 0;
+
+    function createBoard() {
+      const ultimateBoard = document.getElementById('ultimate-board');
+      ultimateBoard.innerHTML = '';
+      for (let i = 0; i < 9; i++) {
+        const localBoard = document.createElement('div');
+        localBoard.className = 'local-board';
+        localBoard.setAttribute('data-board', i);
+        for (let j = 0; j < 9; j++) {
+          const cell = document.createElement('div');
+          cell.className = 'cell';
+          cell.setAttribute('data-cell', j);
+          cell.onclick = () => makeMove(i, j);
+          localBoard.appendChild(cell);
+        }
+        ultimateBoard.appendChild(localBoard);
+      }
+      updateBoard();
+    }
+
+    function makeMove(boardIndex, cellIndex) {
+      if (gameWinner || boardWinners[boardIndex] ||
+        (nextBoard !== -1 && nextBoard !== boardIndex) ||
+        gameBoards[boardIndex][cellIndex]) return;
+      gameBoards[boardIndex][cellIndex] = currentPlayer;
+      checkWin(boardIndex);
+      nextBoard = boardWinners[cellIndex] ? -1 : cellIndex;
+      currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+      updateBoard();
+      const status = document.querySelector('.status');
+      if (gameWinner) {
+        status.textContent = `Player ${gameWinner} wins the game!`;
+        showWinner(gameWinner);
+      } else {
+        status.textContent = `Player ${currentPlayer}'s turn${nextBoard === -1 ? ' (any board)' : ` (board ${nextBoard + 1})`}`;
+      }
+    }
+
+    function checkWin(boardIndex) {
+      const board = gameBoards[boardIndex];
+      const winPatterns = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+      ];
+      for (const pattern of winPatterns) {
+        const [a, b, c] = pattern;
+        if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+          boardWinners[boardIndex] = board[a];
+          return;
+        }
+      }
+    }
+
+    function updateBoard() {
+      const ultimateBoard = document.getElementById('ultimate-board');
+      for (let i = 0; i < 9; i++) {
+        const localBoard = ultimateBoard.children[i];
+        const cells = localBoard.children;
+        for (let j = 0; j < 9; j++) {
+          const cell = cells[j];
+          cell.textContent = gameBoards[i][j];
+          cell.classList.remove('x', 'o', 'x-hover', 'o-hover');
+          if (gameBoards[i][j] === 'X') {
+            cell.classList.add('x');
+          } else if (gameBoards[i][j] === 'O') {
+            cell.classList.add('o');
+          }
+          if (gameBoards[i][j] === '') {
+            if (currentPlayer === 'X') {
+              cell.classList.add('x-hover');
+            } else {
+              cell.classList.add('o-hover');
+            }
+          }
+        }
+        localBoard.classList.remove('active-board');
+        if (boardWinners[i]) {
+          localBoard.classList.add('won-board', boardWinners[i].toLowerCase());
+        }
+        if (nextBoard === i) {
+          localBoard.classList.add('active-board');
+        }
+      }
+    }
+
+    function showWinner(winner) {
+      if (winner === 'X') {
+        xWins++;
+        document.getElementById('x-wins').textContent = xWins;
+      } else {
+        oWins++;
+        document.getElementById('o-wins').textContent = oWins;
+      }
+      const modal = document.getElementById('winner-modal');
+      const winnerMessage = document.getElementById('winner-message');
+      winnerMessage.textContent = `Player ${winner} Wins!`;
+      modal.classList.add('show');
+    }
+
+    function resetGame() {
+      gameBoards = Array(9).fill().map(() => Array(9).fill(''));
+      boardWinners = Array(9).fill('');
+      currentPlayer = 'X';
+      nextBoard = -1;
+      gameWinner = null;
+      updateBoard();
+      document.querySelector('.status').textContent = `Player X's turn`;
+      document.getElementById('winner-modal').classList.remove('show');
+    }
+    createBoard();
+  </script>
+</body>
+
+</html>
